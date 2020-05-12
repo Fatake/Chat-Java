@@ -1,3 +1,4 @@
+package cliente;
 public class Mezclador {
     public String mezcla(String textoA, String textoB){
         int cada = ((int) textoB.length()/2)+1;

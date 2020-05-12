@@ -1,8 +1,6 @@
 package cliente;
 
-import Cliente;
-import MD5;
-import Mezclador;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,12 +10,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -30,6 +26,26 @@ public class ClienteGUI extends javax.swing.JFrame {
      */
     public ClienteGUI() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                try {
+                    //Envia mensaje de Salida
+                    salida.println(encriptar("fn"));
+                } catch (UnsupportedEncodingException ex) {
+                    Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+                    //Termina coneccion
+                    socket.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               System.exit(0);
+            }
+        });
     }
 
     /**
@@ -41,6 +57,14 @@ public class ClienteGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        frameLoggin = new javax.swing.JFrame();
+        labelIniciarSesion = new javax.swing.JLabel();
+        labelUsuario = new javax.swing.JLabel();
+        labelPassword = new javax.swing.JLabel();
+        campoUsuarioNombre = new javax.swing.JTextField();
+        botonLogeo = new javax.swing.JButton();
+        campoPassword = new javax.swing.JPasswordField();
+        labelError = new javax.swing.JLabel();
         botonAgregarAmigos = new javax.swing.JButton();
         labelListaAmigos = new javax.swing.JLabel();
         botonCerrarSesion = new javax.swing.JButton();
@@ -49,6 +73,75 @@ public class ClienteGUI extends javax.swing.JFrame {
         panelAmigos = new javax.swing.JPanel();
         botonPrueba = new javax.swing.JButton();
         textoNombreUsuario = new javax.swing.JLabel();
+
+        frameLoggin.setTitle("Loggin");
+        frameLoggin.setAlwaysOnTop(true);
+        frameLoggin.setMinimumSize(new java.awt.Dimension(320, 200));
+        frameLoggin.setSize(new java.awt.Dimension(400, 220));
+
+        labelIniciarSesion.setText("iniciar Sesion");
+
+        labelUsuario.setText("Usuario");
+
+        labelPassword.setText("Password");
+
+        botonLogeo.setText("Loggin");
+        botonLogeo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonLogeoMouseClicked(evt);
+            }
+        });
+
+        campoPassword.setText("jPasswordField1");
+
+        javax.swing.GroupLayout frameLogginLayout = new javax.swing.GroupLayout(frameLoggin.getContentPane());
+        frameLoggin.getContentPane().setLayout(frameLogginLayout);
+        frameLogginLayout.setHorizontalGroup(
+            frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frameLogginLayout.createSequentialGroup()
+                .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(frameLogginLayout.createSequentialGroup()
+                        .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelIniciarSesion)
+                            .addGroup(frameLogginLayout.createSequentialGroup()
+                                .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(frameLogginLayout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(labelError))
+                                    .addGroup(frameLogginLayout.createSequentialGroup()
+                                        .addGap(74, 74, 74)
+                                        .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelPassword)
+                                            .addComponent(labelUsuario))))
+                                .addGap(66, 66, 66)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(campoUsuarioNombre)
+                            .addComponent(campoPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
+                    .addGroup(frameLogginLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonLogeo)))
+                .addGap(78, 78, 78))
+        );
+        frameLogginLayout.setVerticalGroup(
+            frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frameLogginLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelUsuario)
+                    .addComponent(campoUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPassword)
+                    .addComponent(campoPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(labelError)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(botonLogeo)
+                .addGap(50, 50, 50))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chat Cliente");
@@ -178,14 +271,60 @@ public class ClienteGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAgregarAmigosMouseClicked
 
     private void botonIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonIniciarSesionMouseClicked
-        Loggin logeo = new Loggin();
-        logeo.setVisible(true);
+        frameLoggin.setVisible(true);
     }//GEN-LAST:event_botonIniciarSesionMouseClicked
+
+    private void botonLogeoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonLogeoMouseClicked
+        String nombre = campoUsuarioNombre.getText();
+        String password = campoPassword.getText();
+        if(nombre.equals("") || password.equals("") ){
+            labelError.setText("No ingresó el nombre o contraseña");
+        }else{
+            labelError.setText("");
+            this.usuario = new Usuario(nombre,password);
+            
+            //Envia Usuario
+            salida.println(encriptar("us,"+nombre));
+            //Recibe mensaje Aleatorio
+            String mensajeAleatorio = desencriptar(entrada.readLine());
+            String str[] = mensajeAleatorio.split(",");
+            if (str[0].equals("un")) {
+                    labelError.setText("Usuario no registrado u.u");
+            }else{
+                mensajeAleatorio = str[1];
+
+                //Mezcla el mensaje
+                String textoMezclado = new Mezclador().mezcla(mensajeAleatorio, password);
+
+                //Genera MD5 y envia
+                String md5cli = new MD5().getMD5(textoMezclado);
+                
+                try {
+                    salida.println( encriptar("md,"+md5cli) );
+                } catch (UnsupportedEncodingException ex) {
+                    Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                String confirma = "";
+                try {
+                    confirma = desencriptar( entrada.readLine() );
+                } catch (IOException ex) {
+                    Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (confirma.equals("cn")) {
+                    textoNombreUsuario.setText(this.usuario.getName());
+                    frameLoggin.setVisible(false);
+                }else{
+                     labelError.setText("Usuario no Encontrado"); 
+                }
+            }
+        }
+    }//GEN-LAST:event_botonLogeoMouseClicked
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -197,72 +336,38 @@ public class ClienteGUI extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ClienteGUI().setVisible(true);
-            }
-        });
+        
         //se obtiene el servidor
-        String servidor = args[0];
+        String servidor = SERVIDOR_IP;
         //se obtiene el puerto de conexion
-        int puerto = Integer.parseInt(args[1]);
-        String mensajeAleatorio;
-        Mezclador mes = new Mezclador();
-        MD5 gen = new MD5();
-        String textoMezclado = "";
-
+        int puerto = PUERTO_SERVER;
+        
         System.out.println("Conectando a: "+servidor+"\nPuerto: "+puerto+"\n");
         
         try{
-            Usuario user = new Usuario("Nombre","Usuario");
             //Abre el socket
-            Socket socket = new Socket(servidor,puerto);
+            socket = new Socket(servidor,puerto);
 
             //Habilita Escuchadores de entrada y salida
-            BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter salida = new PrintWriter( new OutputStreamWriter(socket.getOutputStream() ),true );
-
-            //Envia Usuario
-            salida.println(encriptar("us,"+user.getName()));
-
-            //Recibe mensaje Aleatorio
-            mensajeAleatorio = desencriptar(entrada.readLine());
-            String str[] = mensajeAleatorio.split(",");
-            if (str[0].equals("un")) {
-                    System.out.println("Usuario no registrado u.u");
-                    socket.close();
-                    System.exit(1);
-            }
-            mensajeAleatorio = str[1];
-
-            //Mezcla el mensaje
-            textoMezclado = mes.mezcla(mensajeAleatorio, user.getPass());
-
-            //Genera MD5 y envia
-            String md5cli = gen.getMD5(textoMezclado);
-            salida.println(encriptar("md,"+md5cli));
-
-            String confirma = desencriptar(entrada.readLine());
-            if (confirma.equals("cn")) {
-                    System.out.println("Conectado con Exito n.n");
-            }else{
-                    System.out.println("Contraseña Incorrecta");
-            }
-
-            //Envia mensaje de Salida
-            salida.println(encriptar("fn"));
-
-            //Termina coneccion
-            socket.close();
+            ClienteGUI.entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            ClienteGUI.salida = new PrintWriter( new OutputStreamWriter(socket.getOutputStream() ),true );
+        }catch(UnknownHostException e){
+            e.printStackTrace();
+            System.exit(-1);
+        }catch(IOException e){
+            e.printStackTrace();
+            System.exit(-1);
         }
-        catch(UnknownHostException e){
-                e.printStackTrace();
-        }
-        catch(IOException e){
-                e.printStackTrace();
-        }
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new ClienteGUI().setVisible(true);
+        });
+        
+        
+        
+        
+      
     }
     
     private static String encriptar(String s) throws UnsupportedEncodingException{
@@ -273,14 +378,30 @@ public class ClienteGUI extends javax.swing.JFrame {
         byte[] decode = Base64.getDecoder().decode(s.getBytes());
         return new String(decode, "utf-8");
     }
+    //Constantes
+    public static final String SERVIDOR_IP = "localhost";
+    public static final int PUERTO_SERVER = 9999;
+    
     private Usuario usuario;
+    private static BufferedReader entrada;
+    private static PrintWriter salida; 
+    private static Socket socket;
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarAmigos;
     private javax.swing.JButton botonCerrarSesion;
     private javax.swing.JButton botonIniciarSesion;
+    private javax.swing.JButton botonLogeo;
     private javax.swing.JButton botonPrueba;
+    private javax.swing.JPasswordField campoPassword;
+    private javax.swing.JTextField campoUsuarioNombre;
+    private javax.swing.JFrame frameLoggin;
+    private javax.swing.JLabel labelError;
+    private javax.swing.JLabel labelIniciarSesion;
     private javax.swing.JLabel labelListaAmigos;
+    private javax.swing.JLabel labelPassword;
+    private javax.swing.JLabel labelUsuario;
     private javax.swing.JPanel panelAmigos;
     private javax.swing.JScrollPane scrolPanelAmigos;
     private javax.swing.JLabel textoNombreUsuario;

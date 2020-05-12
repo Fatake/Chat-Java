@@ -16,6 +16,7 @@ public class Conversacion extends javax.swing.JFrame {
      */
     public Conversacion() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -33,8 +34,6 @@ public class Conversacion extends javax.swing.JFrame {
         TextAreaMensajesRecibidos = new javax.swing.JTextArea();
         textoMensaje = new javax.swing.JTextField();
         botonEnviar = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Chat con:");
 
