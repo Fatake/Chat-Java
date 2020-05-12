@@ -1,4 +1,5 @@
-package servidor;
+
+
 
 import java.io.*;
 import java.net.*;
@@ -108,7 +109,7 @@ class GestorPeticion extends Thread {
 		System.out.print("\033[H\033[2J");  
 		System.out.flush();
 		System.out.println("\n\n<----------------->"); 
-		Usuario user;
+		Usuario user = null;
 		int indexUser = 0;
 		String textoAleatorio = "";
 		String textoMezclado  = "";

@@ -41,7 +41,7 @@ public class Usuario {
     public void setPass(String password){
         this.password = password;
     }
-    public vois setAmigos(ArrayList<Usuario> amigos){
+    public void setAmigos(ArrayList<Usuario> amigos){
         this.amigos = amigos;
     }
     
