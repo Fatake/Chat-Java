@@ -139,18 +139,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="scrolPanelAmigos" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="scrolPanelAmigos" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="botonAgregarAmigos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="botonPrueba" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="botonIniciarSesion" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="botonCerrarSesion" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="botonIniciarSesion" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelListaAmigos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -165,10 +161,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="botonCerrarSesion" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botonIniciarSesion" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="botonIniciarSesion" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelListaAmigos" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
@@ -199,14 +192,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Lista de Amigos de"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="botonCerrarSesion">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cerra Sesion"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonCerrarSesionActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botonIniciarSesion">
       <Properties>

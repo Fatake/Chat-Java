@@ -12,12 +12,11 @@ import java.net.UnknownHostException;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 
 /**
- *
- * @author pace_
+ * Programa Cliente Gui
+ * @author Fatake
  */
 public class ClienteGUI extends javax.swing.JFrame {
 
@@ -67,7 +66,6 @@ public class ClienteGUI extends javax.swing.JFrame {
         labelError = new javax.swing.JLabel();
         botonAgregarAmigos = new javax.swing.JButton();
         labelListaAmigos = new javax.swing.JLabel();
-        botonCerrarSesion = new javax.swing.JButton();
         botonIniciarSesion = new javax.swing.JButton();
         scrolPanelAmigos = new javax.swing.JScrollPane();
         panelAmigos = new javax.swing.JPanel();
@@ -155,13 +153,6 @@ public class ClienteGUI extends javax.swing.JFrame {
 
         labelListaAmigos.setText("Lista de Amigos de");
 
-        botonCerrarSesion.setText("Cerra Sesion");
-        botonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonCerrarSesionActionPerformed(evt);
-            }
-        });
-
         botonIniciarSesion.setText("Iniciar Sesion");
         botonIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -208,16 +199,13 @@ public class ClienteGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(scrolPanelAmigos)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrolPanelAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(botonAgregarAmigos)
                         .addGap(30, 30, 30)
                         .addComponent(botonPrueba))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonIniciarSesion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonCerrarSesion))
+                    .addComponent(botonIniciarSesion)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelListaAmigos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -228,9 +216,7 @@ public class ClienteGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonCerrarSesion)
-                    .addComponent(botonIniciarSesion))
+                .addComponent(botonIniciarSesion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelListaAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,10 +232,6 @@ public class ClienteGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void botonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonCerrarSesionActionPerformed
 
     private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
         // TODO add your handling code here:
@@ -281,12 +263,22 @@ public class ClienteGUI extends javax.swing.JFrame {
             labelError.setText("No ingresó el nombre o contraseña");
         }else{
             labelError.setText("");
-            this.usuario = new Usuario(nombre,password);
+            //Envia Nombre Usuario
+            try {
+                salida.println(encriptar("us,"+nombre));
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
-            //Envia Usuario
-            salida.println(encriptar("us,"+nombre));
             //Recibe mensaje Aleatorio
-            String mensajeAleatorio = desencriptar(entrada.readLine());
+            String mensajeAleatorio = null;
+            try {
+                mensajeAleatorio = desencriptar( entrada.readLine() );
+            } catch (IOException ex) {
+                Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //Separa, donde str[0] tipo de mensaje
+            // str[1] mensaje
             String str[] = mensajeAleatorio.split(",");
             if (str[0].equals("un")) {
                     labelError.setText("Usuario no registrado u.u");
@@ -307,11 +299,14 @@ public class ClienteGUI extends javax.swing.JFrame {
 
                 String confirma = "";
                 try {
+                    // Recibe confirmacion
                     confirma = desencriptar( entrada.readLine() );
                 } catch (IOException ex) {
                     Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                //Si empieza con cn entonces existe coneccion
                 if (confirma.equals("cn")) {
+                    this.usuario = new Usuario(nombre,password);
                     textoNombreUsuario.setText(this.usuario.getName());
                     frameLoggin.setVisible(false);
                 }else{
@@ -323,6 +318,7 @@ public class ClienteGUI extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
     public static void main(String args[]) throws IOException {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -337,16 +333,10 @@ public class ClienteGUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
-        //se obtiene el servidor
-        String servidor = SERVIDOR_IP;
-        //se obtiene el puerto de conexion
-        int puerto = PUERTO_SERVER;
-        
-        System.out.println("Conectando a: "+servidor+"\nPuerto: "+puerto+"\n");
-        
+        //Inicia el servidord
         try{
             //Abre el socket
-            socket = new Socket(servidor,puerto);
+            socket = new Socket(SERVIDOR_IP,PUERTO_SERVER);
 
             //Habilita Escuchadores de entrada y salida
             ClienteGUI.entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -364,16 +354,26 @@ public class ClienteGUI extends javax.swing.JFrame {
             new ClienteGUI().setVisible(true);
         });
         
-        
-        
-        
       
     }
     
+    /**
+     * 
+     * Metodo Encriptar
+     * @param s
+     * @return
+     * @throws UnsupportedEncodingException 
+     */
     private static String encriptar(String s) throws UnsupportedEncodingException{
         return Base64.getEncoder().encodeToString(s.getBytes("utf-8"));
     }
-
+    
+    /**
+     * Metodo Desencriptar
+     * @param s
+     * @return
+     * @throws UnsupportedEncodingException 
+     */
     private static String desencriptar(String s) throws UnsupportedEncodingException{
         byte[] decode = Base64.getDecoder().decode(s.getBytes());
         return new String(decode, "utf-8");
@@ -382,6 +382,7 @@ public class ClienteGUI extends javax.swing.JFrame {
     public static final String SERVIDOR_IP = "localhost";
     public static final int PUERTO_SERVER = 9999;
     
+    //Variables no Graficas
     private Usuario usuario;
     private static BufferedReader entrada;
     private static PrintWriter salida; 
@@ -390,7 +391,6 @@ public class ClienteGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarAmigos;
-    private javax.swing.JButton botonCerrarSesion;
     private javax.swing.JButton botonIniciarSesion;
     private javax.swing.JButton botonLogeo;
     private javax.swing.JButton botonPrueba;

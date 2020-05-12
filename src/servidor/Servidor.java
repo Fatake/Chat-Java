@@ -280,7 +280,7 @@ class LectorArchivo {
         for (int i = 0; i < contenidoArchivo.size(); i++) {
             String aux = contenidoArchivo.get(i);
             String aux2[] = aux.split(",");
-            usuarios.add(new Usuario(aux2[0], aux2[1]));
+            usuarios.add(new Usuario(aux2[0], aux2[1], aux2[2] ));
         }
         contenidoArchivo = null;
         return usuarios;
