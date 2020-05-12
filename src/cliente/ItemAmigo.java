@@ -14,8 +14,9 @@ public class ItemAmigo extends javax.swing.JPanel {
     /**
      * Creates new form itemAmigo
      */
-    public ItemAmigo() {
+    public ItemAmigo(String nombre) {
         initComponents();
+        this.labelNombreAmigo.setText(nombre);
     }
 
     /**

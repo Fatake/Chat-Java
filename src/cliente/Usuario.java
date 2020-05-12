@@ -26,6 +26,10 @@ public class Usuario {
         this.nombre = nombre;
         this.password = password;
     }
+    //Funciones
+    public void addAmigo(String nombreAmigo){
+        this.amigos.add(nombreAmigo);
+    }
     //
     // Getters and setters
     //

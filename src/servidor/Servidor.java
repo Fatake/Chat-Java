@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 public class Servidor {  
 	//Lista de Usuarios
 	private ArrayList<Usuario> usuarios = new ArrayList<>();
+	private static ArrayList<GestorPeticion> hilos = new ArrayList<>();
 
 	/*
 	 * Main
@@ -54,10 +55,11 @@ public class Servidor {
 				socketDespachador = socketServer.accept();
 				System.out.println("Nueva conexion aceptada: " + socketDespachador);
 				// Se crea un Hilo para esa peticion
-				new GestorPeticion(socketDespachador,aux.usuarios).start();
+				GestorPeticion nuevo = new GestorPeticion(socketDespachador,aux.usuarios);
+				hilos.add( nuevo ) ;
+				nuevo.start();
 				socketDespachador = null;
-			} 
-			catch (IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 				System.exit(-1);
 			}
@@ -68,7 +70,7 @@ public class Servidor {
 	 * funcion que imprime usuarios de la Base de datos
 	 */
 	private void imprimeUsuarios(){
-		System.out.println("Usuarios en el Servidor\n<------------------------>");
+		System.out.println("Usuarios Registrados\n<------------------------>");
 		for (Usuario usuario : usuarios) {
 			System.out.println(usuario.toString());
 		}
@@ -164,6 +166,15 @@ class GestorPeticion extends Thread {
 						System.out.println("Contraseña Incorrecta");
 						salida.println(encriptar("nn"));
 					}
+				}else if (aux[0].startsWith("ls")) {//Lista de Amigos
+					ArrayList<String> amigos = user.getAmigos();
+					//Envia la cantidad de amigos
+					int cantidadAmigos = amigos.size();
+					salida.println(encriptar(""+cantidadAmigos));
+					//Envia los nombres
+					for (String amigo : amigos) {
+						salida.println(amigo);
+					}
 				}
 
 				if(str.equals("fn")){
@@ -171,7 +182,7 @@ class GestorPeticion extends Thread {
 					break;
 				}
 			}
-			
+			//Cierra la tuberia
 			salida.close();
 			entrada.close();
 		}

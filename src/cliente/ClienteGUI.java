@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,8 +70,8 @@ public class ClienteGUI extends javax.swing.JFrame {
         botonIniciarSesion = new javax.swing.JButton();
         scrolPanelAmigos = new javax.swing.JScrollPane();
         panelAmigos = new javax.swing.JPanel();
-        botonPrueba = new javax.swing.JButton();
         textoNombreUsuario = new javax.swing.JLabel();
+        botonActualizarLizastaAmigos = new javax.swing.JButton();
 
         frameLoggin.setTitle("Loggin");
         frameLoggin.setAlwaysOnTop(true);
@@ -184,14 +185,14 @@ public class ClienteGUI extends javax.swing.JFrame {
 
         scrolPanelAmigos.setViewportView(panelAmigos);
 
-        botonPrueba.setText("Prueba");
-        botonPrueba.addMouseListener(new java.awt.event.MouseAdapter() {
+        textoNombreUsuario.setText("inicieSesion");
+
+        botonActualizarLizastaAmigos.setText("Actualizar");
+        botonActualizarLizastaAmigos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonPruebaMouseClicked(evt);
+                botonActualizarLizastaAmigosMouseClicked(evt);
             }
         });
-
-        textoNombreUsuario.setText("inicieSesion");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -199,24 +200,27 @@ public class ClienteGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrolPanelAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(botonAgregarAmigos)
-                        .addGap(30, 30, 30)
-                        .addComponent(botonPrueba))
-                    .addComponent(botonIniciarSesion)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelListaAmigos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textoNombreUsuario)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(botonAgregarAmigos)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(labelListaAmigos)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(textoNombreUsuario))
+                        .addComponent(scrolPanelAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(botonIniciarSesion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonActualizarLizastaAmigos)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(botonIniciarSesion)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonIniciarSesion)
+                    .addComponent(botonActualizarLizastaAmigos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelListaAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,10 +228,8 @@ public class ClienteGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(scrolPanelAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonAgregarAmigos)
-                    .addComponent(botonPrueba))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(botonAgregarAmigos)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -241,15 +243,9 @@ public class ClienteGUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_scrolPanelAmigosMouseClicked
 
-    private void botonPruebaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonPruebaMouseClicked
-        Conversacion nuevo = new Conversacion();
-        nuevo.setVisible(true);
-    }//GEN-LAST:event_botonPruebaMouseClicked
-
     private void botonAgregarAmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarAmigosMouseClicked
-        ItemAmigo nuevo = new ItemAmigo();
+        ItemAmigo nuevo = new ItemAmigo("Otro");
         panelAmigos.add(nuevo);
-        scrolPanelAmigos.updateUI();
     }//GEN-LAST:event_botonAgregarAmigosMouseClicked
 
     private void botonIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonIniciarSesionMouseClicked
@@ -309,12 +305,45 @@ public class ClienteGUI extends javax.swing.JFrame {
                     this.usuario = new Usuario(nombre,password);
                     textoNombreUsuario.setText(this.usuario.getName());
                     frameLoggin.setVisible(false);
+                    //Pide la lista de amigos
+                    try {
+                        salida.println( encriptar("ls"));
+                    } catch (UnsupportedEncodingException ex) {
+                        Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    //REcibe numero de amigos
+                    int numAmigos = 0;
+                    try {
+                        // Recibe confirmacion
+                        numAmigos = Integer.parseInt( desencriptar( entrada.readLine() ) );
+                    } catch (IOException ex) {
+                        Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    for (int i = 0;i<numAmigos ; i++){
+                        String amigo = null;
+                        try {
+                            // Recibe confirmacion
+                            this.usuario.addAmigo(desencriptar( entrada.readLine() ));
+                        } catch (IOException ex) {
+                            Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                 }else{
                      labelError.setText("Usuario no Encontrado"); 
                 }
             }
         }
     }//GEN-LAST:event_botonLogeoMouseClicked
+
+    private void botonActualizarLizastaAmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonActualizarLizastaAmigosMouseClicked
+        if(usuario != null){
+            ArrayList<String> lista = usuario.getAmigos();
+            for (String nombre : lista) {
+                ItemAmigo nuevo = new ItemAmigo(nombre);
+                panelAmigos.add(nuevo);
+            }
+        }
+    }//GEN-LAST:event_botonActualizarLizastaAmigosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -353,9 +382,7 @@ public class ClienteGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new ClienteGUI().setVisible(true);
         });
-        
-      
-    }
+    }//End Main
     
     /**
      * 
@@ -383,17 +410,17 @@ public class ClienteGUI extends javax.swing.JFrame {
     public static final int PUERTO_SERVER = 9999;
     
     //Variables no Graficas
-    private Usuario usuario;
+    private Usuario usuario ;
     private static BufferedReader entrada;
     private static PrintWriter salida; 
     private static Socket socket;
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonActualizarLizastaAmigos;
     private javax.swing.JButton botonAgregarAmigos;
     private javax.swing.JButton botonIniciarSesion;
     private javax.swing.JButton botonLogeo;
-    private javax.swing.JButton botonPrueba;
     private javax.swing.JPasswordField campoPassword;
     private javax.swing.JTextField campoUsuarioNombre;
     private javax.swing.JFrame frameLoggin;
