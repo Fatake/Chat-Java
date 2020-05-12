@@ -1,6 +1,5 @@
 package cliente;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -249,7 +249,8 @@ public class ClienteGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAgregarAmigosMouseClicked
 
     private void botonIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonIniciarSesionMouseClicked
-        frameLoggin.setVisible(true);
+        frameLoggin.setLocationRelativeTo(null);
+        frameLoggin.setVisible(true);  
     }//GEN-LAST:event_botonIniciarSesionMouseClicked
 
     private void botonLogeoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonLogeoMouseClicked
@@ -277,7 +278,7 @@ public class ClienteGUI extends javax.swing.JFrame {
             // str[1] mensaje
             String str[] = mensajeAleatorio.split(",");
             if (str[0].equals("un")) {
-                    labelError.setText("Usuario no registrado u.u");
+                    labelError.setText("Usuario o Contraseña incorrecta");
             }else{
                 mensajeAleatorio = str[1];
 
@@ -304,30 +305,26 @@ public class ClienteGUI extends javax.swing.JFrame {
                 if (confirma.equals("cn")) {
                     this.usuario = new Usuario(nombre,password);
                     textoNombreUsuario.setText(this.usuario.getName());
-                    frameLoggin.setVisible(false);
+                    
                     //Pide la lista de amigos
                     try {
+                        
                         salida.println( encriptar("ls"));
                     } catch (UnsupportedEncodingException ex) {
                         Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    //REcibe numero de amigos
-                    int numAmigos = 0;
+                    
+                    String amigos = null;
                     try {
                         // Recibe confirmacion
-                        numAmigos = Integer.parseInt( desencriptar( entrada.readLine() ) );
+                        amigos = desencriptar( entrada.readLine() );
+                        System.out.println("Amigos : "+amigos );
+                        String aux[] = amigos.split(",");
+                        //this.usuario.setAmigos( (ArrayList<String>) Arrays.asList(aux) );                       
                     } catch (IOException ex) {
                         Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    for (int i = 0;i<numAmigos ; i++){
-                        String amigo = null;
-                        try {
-                            // Recibe confirmacion
-                            this.usuario.addAmigo(desencriptar( entrada.readLine() ));
-                        } catch (IOException ex) {
-                            Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
+                    frameLoggin.setVisible(false);
                 }else{
                      labelError.setText("Usuario no Encontrado"); 
                 }
@@ -366,7 +363,6 @@ public class ClienteGUI extends javax.swing.JFrame {
         try{
             //Abre el socket
             socket = new Socket(SERVIDOR_IP,PUERTO_SERVER);
-
             //Habilita Escuchadores de entrada y salida
             ClienteGUI.entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             ClienteGUI.salida = new PrintWriter( new OutputStreamWriter(socket.getOutputStream() ),true );
@@ -374,14 +370,22 @@ public class ClienteGUI extends javax.swing.JFrame {
             e.printStackTrace();
             System.exit(-1);
         }catch(IOException e){
+            System.out.println("Error el servidor no está activo: " );
             e.printStackTrace();
             System.exit(-1);
         }
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new ClienteGUI().setVisible(true);
+        System.out.println("IniciaAplicacion: " );
+        //Inicia Aplicacion
+ 
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ClienteGUI ventana = new ClienteGUI();
+                ventana.setVisible(true);
+            }
         });
+
     }//End Main
     
     /**

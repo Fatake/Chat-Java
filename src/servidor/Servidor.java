@@ -167,18 +167,22 @@ class GestorPeticion extends Thread {
 						salida.println(encriptar("nn"));
 					}
 				}else if (aux[0].startsWith("ls")) {//Lista de Amigos
-					ArrayList<String> amigos = user.getAmigos();
-					//Envia la cantidad de amigos
-					int cantidadAmigos = amigos.size();
-					salida.println(encriptar(""+cantidadAmigos));
+					System.out.println("\033[H\033[2J");  
+					System.out.flush();
+					System.out.println("Enviando amigos");
+
 					//Envia los nombres
-					for (String amigo : amigos) {
-						salida.println(amigo);
-					}
+					String auxs = user.getAmigos().toString();
+					auxs = auxs.replace("[", "");
+					auxs = auxs.replace("]", "");
+					System.out.println("Amigos: "+auxs);
+					salida.println(auxs);
+					
 				}
 
 				if(str.equals("fn")){
 					System.out.println("Cerrando Coneccion");
+					System.out.println("<----------------->\n\n"); 
 					break;
 				}
 			}
