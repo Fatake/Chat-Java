@@ -1,6 +1,7 @@
+package cliente;
+
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
 import java.security.SecureRandom;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -8,12 +9,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.Base64;
-import java.util.UUID;
 import java.io.UnsupportedEncodingException;
 
 public class Servidor {  
 	//Lista de Usuarios
-	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	private ArrayList<Usuario> usuarios = new ArrayList<>();
 
 	/*
 	 * Main
