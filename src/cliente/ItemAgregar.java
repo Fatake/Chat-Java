@@ -12,7 +12,7 @@ public class ItemAgregar extends javax.swing.JPanel {
     public ItemAgregar(String nombre,ClienteGUI cliente) {
         initComponents();
         this.label_nombre.setText(nombre);
-        this.c=cliente;
+        this.c = cliente;
     }
 
     /**
