@@ -394,7 +394,11 @@ public class ClienteGUI extends javax.swing.JFrame {
             }
             //Se le envia la nueva lista al servidor
             try {
-                salida.println(encriptar("ac,"+lista.toString()));
+                String listaNormal = usuario.getAmigos().toString();
+                listaNormal = listaNormal.replace("[", "");
+                listaNormal = listaNormal.replace("]", "");
+                System.out.println("Amigos nuevos: " +listaNormal);
+                salida.println( encriptar("ac,"+listaNormal ) );
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
             }

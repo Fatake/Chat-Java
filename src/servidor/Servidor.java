@@ -171,35 +171,31 @@ class GestorPeticion extends Thread {
 						salida.println( encriptar("nn") );
 					}
 				}else if (aux[0].startsWith("ls")) {//Lista de Amigos
-					System.out.println("Enviando amigos");
-					//Envia los nombres
-                                        
-					ArrayList<String> auxs = new ArrayList<>();
+					//Se obtiene lista de amigos                    
+					ArrayList<String> aux3 = new ArrayList<>();
 					for(int i=0;i<user.getAmigos().size();i++)
-						auxs.add(user.getAmigos().get(i));
-					 
-					String aux2 = auxs.toString();
+						aux3.add(user.getAmigos().get(i));
+					//Se cambia el formato
+					String aux2 = aux3.toString();
 					aux2 = aux2.replace("[", "");
 					aux2 = aux2.replace("]", "");
 					System.out.println("Amigos: "+aux2);
-					salida.println(encriptar(aux2));
+					salida.println( encriptar(aux2) );
                                         
-					ArrayList<String> aux3 = new ArrayList<String>();
-					
+					aux3 = new ArrayList<String>();
+					//Se envia la lista de usuarips
 					for(int i=0;i<this.usuarios.size();i++)
 						aux3.add(this.usuarios.get(i).getName());
-					
+					//Se quita el formato
 					String aux4 = aux3.toString();
 					aux4 = aux4.replace("[", "");
 					aux4 = aux4.replace("]", "");
 					System.out.println("Usuarios: "+aux4);
-                                        salida.println(encriptar(aux4));
+					salida.println( encriptar(aux4) );
+					
 				}else if (aux[0].startsWith("ac")) {//Actualizar lista amigos
 					String listaNueva = aux[1];
-					System.out.println("Recibiendo lista nueva: \n"+listaNueva);
-					listaNueva = listaNueva.replace("[", "");
-					listaNueva = listaNueva.replace("]", "");
-
+					System.out.println("Recibiendo lista nueva: \n"+aux[1]);
 					
 					String strss[] = listaNueva.split(",");
 					List<String> al = new ArrayList<>();
