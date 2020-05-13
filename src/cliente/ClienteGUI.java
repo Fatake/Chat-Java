@@ -1,4 +1,4 @@
-package cliente;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 
 
 /**
@@ -20,7 +21,7 @@ import java.util.logging.Logger;
  * @author Fatake
  */
 public class ClienteGUI extends javax.swing.JFrame {
-
+     ArrayList<String> listaTodos = new ArrayList<String>();
     /**
      * Creates new form NewJFrame
      */
@@ -65,20 +66,23 @@ public class ClienteGUI extends javax.swing.JFrame {
         botonLogeo = new javax.swing.JButton();
         campoPassword = new javax.swing.JPasswordField();
         labelError = new javax.swing.JLabel();
-        botonAgregarAmigos = new javax.swing.JButton();
         labelListaAmigos = new javax.swing.JLabel();
         botonIniciarSesion = new javax.swing.JButton();
         scrolPanelAmigos = new javax.swing.JScrollPane();
         panelAmigos = new javax.swing.JPanel();
         textoNombreUsuario = new javax.swing.JLabel();
         botonActualizarLizastaAmigos = new javax.swing.JButton();
+        scrolPanelAgregar = new javax.swing.JScrollPane();
+        panelAgregar = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         frameLoggin.setTitle("Loggin");
         frameLoggin.setAlwaysOnTop(true);
         frameLoggin.setMinimumSize(new java.awt.Dimension(320, 200));
         frameLoggin.setSize(new java.awt.Dimension(400, 220));
 
-        labelIniciarSesion.setText("iniciar Sesion");
+        labelIniciarSesion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labelIniciarSesion.setText("Iniciar Sesion");
 
         labelUsuario.setText("Usuario");
 
@@ -90,69 +94,67 @@ public class ClienteGUI extends javax.swing.JFrame {
                 botonLogeoMouseClicked(evt);
             }
         });
-
-        campoPassword.setText("jPasswordField1");
+        botonLogeo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonLogeoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout frameLogginLayout = new javax.swing.GroupLayout(frameLoggin.getContentPane());
         frameLoggin.getContentPane().setLayout(frameLogginLayout);
         frameLogginLayout.setHorizontalGroup(
             frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frameLogginLayout.createSequentialGroup()
-                .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(frameLogginLayout.createSequentialGroup()
+                .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(frameLogginLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(labelError))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frameLogginLayout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(labelIniciarSesion)))
                     .addGroup(frameLogginLayout.createSequentialGroup()
-                        .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labelIniciarSesion)
+                        .addGap(54, 54, 54)
+                        .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(frameLogginLayout.createSequentialGroup()
-                                .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(frameLogginLayout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(labelError))
-                                    .addGroup(frameLogginLayout.createSequentialGroup()
-                                        .addGap(74, 74, 74)
-                                        .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(labelPassword)
-                                            .addComponent(labelUsuario))))
-                                .addGap(66, 66, 66)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(campoUsuarioNombre)
-                            .addComponent(campoPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
+                                .addComponent(labelUsuario)
+                                .addGap(18, 18, 18)
+                                .addComponent(campoUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(frameLogginLayout.createSequentialGroup()
+                                .addComponent(labelPassword)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(campoPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(frameLogginLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(156, 156, 156)
                         .addComponent(botonLogeo)))
-                .addGap(78, 78, 78))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         frameLogginLayout.setVerticalGroup(
             frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(frameLogginLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(23, 23, 23)
                 .addComponent(labelIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelUsuario)
                     .addComponent(campoUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(9, 9, 9)
+                .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelPassword)
-                    .addComponent(campoPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(campoPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(8, 8, 8)
                 .addComponent(labelError)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(botonLogeo)
-                .addGap(50, 50, 50))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chat Cliente");
 
-        botonAgregarAmigos.setText("Agregar Amigos");
-        botonAgregarAmigos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonAgregarAmigosMouseClicked(evt);
-            }
-        });
-
-        labelListaAmigos.setText("Lista de Amigos de");
+        labelListaAmigos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labelListaAmigos.setText("Lista de Amigos ");
 
         botonIniciarSesion.setText("Iniciar Sesion");
         botonIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -172,20 +174,23 @@ public class ClienteGUI extends javax.swing.JFrame {
             }
         });
 
+        panelAmigos.setBackground(new java.awt.Color(204, 204, 204));
+
         javax.swing.GroupLayout panelAmigosLayout = new javax.swing.GroupLayout(panelAmigos);
         panelAmigos.setLayout(panelAmigosLayout);
         panelAmigosLayout.setHorizontalGroup(
             panelAmigosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 227, Short.MAX_VALUE)
+            .addGap(0, 487, Short.MAX_VALUE)
         );
         panelAmigosLayout.setVerticalGroup(
             panelAmigosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 266, Short.MAX_VALUE)
+            .addGap(0, 362, Short.MAX_VALUE)
         );
 
         scrolPanelAmigos.setViewportView(panelAmigos);
 
-        textoNombreUsuario.setText("inicieSesion");
+        textoNombreUsuario.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        textoNombreUsuario.setText("Inicia Sesion");
 
         botonActualizarLizastaAmigos.setText("Actualizar");
         botonActualizarLizastaAmigos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -194,42 +199,64 @@ public class ClienteGUI extends javax.swing.JFrame {
             }
         });
 
+        panelAgregar.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout panelAgregarLayout = new javax.swing.GroupLayout(panelAgregar);
+        panelAgregar.setLayout(panelAgregarLayout);
+        panelAgregarLayout.setHorizontalGroup(
+            panelAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 290, Short.MAX_VALUE)
+        );
+        panelAgregarLayout.setVerticalGroup(
+            panelAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 350, Short.MAX_VALUE)
+        );
+
+        scrolPanelAgregar.setViewportView(panelAgregar);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Usuarios en la red");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(botonAgregarAmigos)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textoNombreUsuario)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(botonActualizarLizastaAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(labelListaAmigos)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textoNombreUsuario))
-                        .addComponent(scrolPanelAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(botonIniciarSesion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonActualizarLizastaAmigos)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(labelListaAmigos)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(botonIniciarSesion))
+                                .addComponent(scrolPanelAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(33, 33, 33)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(scrolPanelAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)))))
+                .addGap(0, 17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonIniciarSesion)
-                    .addComponent(botonActualizarLizastaAmigos))
+                .addGap(22, 22, 22)
+                .addComponent(textoNombreUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelListaAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textoNombreUsuario))
+                    .addComponent(labelListaAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonIniciarSesion)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addComponent(scrolPanelAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botonAgregarAmigos)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(scrolPanelAgregar)
+                    .addComponent(scrolPanelAmigos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(botonActualizarLizastaAmigos)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -242,11 +269,6 @@ public class ClienteGUI extends javax.swing.JFrame {
     private void scrolPanelAmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrolPanelAmigosMouseClicked
         
     }//GEN-LAST:event_scrolPanelAmigosMouseClicked
-
-    private void botonAgregarAmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarAmigosMouseClicked
-        ItemAmigo nuevo = new ItemAmigo("Otro");
-        panelAmigos.add(nuevo);
-    }//GEN-LAST:event_botonAgregarAmigosMouseClicked
 
     private void botonIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonIniciarSesionMouseClicked
         frameLoggin.setLocationRelativeTo(null);
@@ -277,6 +299,7 @@ public class ClienteGUI extends javax.swing.JFrame {
             //Separa, donde str[0] tipo de mensaje
             // str[1] mensaje
             String str[] = mensajeAleatorio.split(",");
+            System.out.println("Se recibio el mensaje aleatorio");
             if (str[0].equals("un")) {
                     labelError.setText("Usuario o Contraseña incorrecta");
             }else{
@@ -284,9 +307,10 @@ public class ClienteGUI extends javax.swing.JFrame {
 
                 //Mezcla el mensaje
                 String textoMezclado = new Mezclador().mezcla(mensajeAleatorio, password);
-
+                System.out.println("Se mezclo el mensaje aleatorio");
                 //Genera MD5 y envia
                 String md5cli = new MD5().getMD5(textoMezclado);
+                System.out.println("Se genero el MD5");
                 
                 try {
                     salida.println( encriptar("md,"+md5cli) );
@@ -298,6 +322,8 @@ public class ClienteGUI extends javax.swing.JFrame {
                 try {
                     // Recibe confirmacion
                     confirma = desencriptar( entrada.readLine() );
+                    System.out.println("Se recibio LA CONFIRMACION");
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -305,7 +331,7 @@ public class ClienteGUI extends javax.swing.JFrame {
                 if (confirma.equals("cn")) {
                     this.usuario = new Usuario(nombre,password);
                     textoNombreUsuario.setText(this.usuario.getName());
-                    
+                    System.out.println("Existe conexion");
                     //Pide la lista de amigos
                     try {
                         
@@ -315,12 +341,28 @@ public class ClienteGUI extends javax.swing.JFrame {
                     }
                     
                     String amigos = null;
+                    String todos=null;
+                    ArrayList<String> friends = new ArrayList<String>();
+                   
                     try {
-                        // Recibe confirmacion
+                        // Recibe confirmacion con lista de amigos
                         amigos = desencriptar( entrada.readLine() );
                         System.out.println("Amigos : "+amigos );
-                        String aux[] = amigos.split(",");
-                        //this.usuario.setAmigos( (ArrayList<String>) Arrays.asList(aux) );                       
+                        String aux[] = amigos.split(", ");
+                        for(int i=0;i<aux.length;i++)
+                            friends.add(aux[i]);
+                        this.usuario.setAmigos( friends );
+                        this.actualizarListaAmigos();
+                        
+                        //Recibe lista todos
+                        
+                        todos = desencriptar(entrada.readLine());
+                        System.out.println("No Amigos : "+todos );
+                        String aux1[] = todos.split(", ");
+                        for(int i=0;i<aux1.length;i++)
+                           this.listaTodos.add(aux1[i]);
+                        this.actualizarListaNoAmigos();
+                        
                     } catch (IOException ex) {
                         Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -333,14 +375,62 @@ public class ClienteGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_botonLogeoMouseClicked
 
     private void botonActualizarLizastaAmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonActualizarLizastaAmigosMouseClicked
+        this.actualizarListaAmigos();
+    }//GEN-LAST:event_botonActualizarLizastaAmigosMouseClicked
+
+    
+    
+    public void actualizarListaAmigos(){
+    
         if(usuario != null){
             ArrayList<String> lista = usuario.getAmigos();
+            int cs=0;
             for (String nombre : lista) {
-                ItemAmigo nuevo = new ItemAmigo(nombre);
+                ItemAmigo nuevo = new ItemAmigo(nombre,this);
+                
+                nuevo.setBounds(10, 10+cs, 217, 45);
                 panelAmigos.add(nuevo);
+                
+                cs+=46;
+                panelAmigos.repaint();
+                this.setSize(this.getWidth()+1, this.getHeight());
+                this.setSize(this.getWidth()-1, this.getHeight());
             }
         }
-    }//GEN-LAST:event_botonActualizarLizastaAmigosMouseClicked
+    }
+    
+    public void actualizarListaNoAmigos(){
+         panelAgregar.removeAll();
+        if(usuario != null){
+            ArrayList<String> listaT = this.listaTodos;
+            ArrayList<String> listaA = usuario.getAmigos();
+            ArrayList<String> listaNA = new ArrayList<String>();
+            int cs=0;
+            ItemAgregar nuevo;
+            for (String nombre : listaT) {
+                if(!listaA.contains(nombre) & !nombre.equals(usuario.getName())){
+              
+                    
+                    nuevo = new ItemAgregar(nombre,this);
+                    nuevo.setBounds(10, 10+cs, 217, 45);
+                    panelAgregar.add(nuevo);
+                
+                cs+=46;
+               
+                panelAgregar.repaint();
+                this.setSize(this.getWidth()+1, this.getHeight());
+                this.setSize(this.getWidth()-1, this.getHeight());
+                }
+               
+            }
+        }
+    }
+    
+    private void botonLogeoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLogeoActionPerformed
+
+           
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonLogeoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -419,21 +509,26 @@ public class ClienteGUI extends javax.swing.JFrame {
     private static PrintWriter salida; 
     private static Socket socket;
     
+    public Usuario getUser(){
+        return this.usuario;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonActualizarLizastaAmigos;
-    private javax.swing.JButton botonAgregarAmigos;
     private javax.swing.JButton botonIniciarSesion;
     private javax.swing.JButton botonLogeo;
     private javax.swing.JPasswordField campoPassword;
     private javax.swing.JTextField campoUsuarioNombre;
     private javax.swing.JFrame frameLoggin;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelError;
     private javax.swing.JLabel labelIniciarSesion;
     private javax.swing.JLabel labelListaAmigos;
     private javax.swing.JLabel labelPassword;
     private javax.swing.JLabel labelUsuario;
+    private javax.swing.JPanel panelAgregar;
     private javax.swing.JPanel panelAmigos;
+    private javax.swing.JScrollPane scrolPanelAgregar;
     private javax.swing.JScrollPane scrolPanelAmigos;
     private javax.swing.JLabel textoNombreUsuario;
     // End of variables declaration//GEN-END:variables

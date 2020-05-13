@@ -1,10 +1,13 @@
-package cliente;
+
 import java.util.ArrayList;
 
 public class Usuario {
     private String nombre;
     private String password;
     private ArrayList<String> amigos = new ArrayList<>();
+    
+    
+    
    
     //
     // Constructores

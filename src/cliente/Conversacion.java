@@ -1,4 +1,4 @@
-package cliente;
+
 
 /**
  *
@@ -9,9 +9,10 @@ public class Conversacion extends javax.swing.JFrame {
     /**
      * Creates new form Conversacion
      */
-    public Conversacion() {
+    public Conversacion(String amigo) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.labelAmigoCaht.setText(amigo);
     }
 
     /**
@@ -25,18 +26,15 @@ public class Conversacion extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         labelAmigoCaht = new javax.swing.JLabel();
-        panelMensajes = new javax.swing.JScrollPane();
-        TextAreaMensajesRecibidos = new javax.swing.JTextArea();
         textoMensaje = new javax.swing.JTextField();
         botonEnviar = new javax.swing.JButton();
+        panelMensajes = new javax.swing.JPanel();
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Chat con:");
 
+        labelAmigoCaht.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelAmigoCaht.setText("Nombre Amigo");
-
-        TextAreaMensajesRecibidos.setColumns(20);
-        TextAreaMensajesRecibidos.setRows(5);
-        panelMensajes.setViewportView(TextAreaMensajesRecibidos);
 
         textoMensaje.setText("Escriba su mensaje Aqui");
         textoMensaje.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -46,6 +44,26 @@ public class Conversacion extends javax.swing.JFrame {
         });
 
         botonEnviar.setText("Enviar");
+        botonEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEnviarActionPerformed(evt);
+            }
+        });
+
+        panelMensajes.setBackground(new java.awt.Color(255, 255, 255));
+        panelMensajes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelMensajes.setAutoscrolls(true);
+
+        javax.swing.GroupLayout panelMensajesLayout = new javax.swing.GroupLayout(panelMensajes);
+        panelMensajes.setLayout(panelMensajesLayout);
+        panelMensajesLayout.setHorizontalGroup(
+            panelMensajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 483, Short.MAX_VALUE)
+        );
+        panelMensajesLayout.setVerticalGroup(
+            panelMensajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -54,17 +72,20 @@ public class Conversacion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelMensajes)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(labelAmigoCaht)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(textoMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(botonEnviar)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonEnviar)
+                        .addGap(68, 68, 68))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(panelMensajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(19, 19, 19))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -73,13 +94,13 @@ public class Conversacion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(labelAmigoCaht))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelMensajes, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(panelMensajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonEnviar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -89,47 +110,23 @@ public class Conversacion extends javax.swing.JFrame {
         textoMensaje.setText("");
     }//GEN-LAST:event_textoMensajeMouseClicked
 
+    private void botonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarActionPerformed
+        // TODO add your handling code here:
+        
+        ItemMensaje mensaje
+        
+    }//GEN-LAST:event_botonEnviarActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Conversacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Conversacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Conversacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Conversacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Conversacion().setVisible(true);
-            }
-        });
-    }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea TextAreaMensajesRecibidos;
     private javax.swing.JButton botonEnviar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelAmigoCaht;
-    private javax.swing.JScrollPane panelMensajes;
+    private javax.swing.JPanel panelMensajes;
     private javax.swing.JTextField textoMensaje;
     // End of variables declaration//GEN-END:variables
 }

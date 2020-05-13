@@ -1,17 +1,18 @@
-package cliente;
+
 
 /**
  *
  * @author pace_
  */
 public class ItemAmigo extends javax.swing.JPanel {
-
+        ClienteGUI c;
     /**
      * Creates new form itemAmigo
      */
-    public ItemAmigo(String nombre) {
+    public ItemAmigo(String nombre,ClienteGUI cliente) {
         initComponents();
         this.labelNombreAmigo.setText(nombre);
+        this.c=cliente;
     }
 
     /**
@@ -29,6 +30,11 @@ public class ItemAmigo extends javax.swing.JPanel {
         labelNombreAmigo.setText("Nombre Amigo");
 
         botonMensajear.setText("Mensajear");
+        botonMensajear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonMensajearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -51,6 +57,17 @@ public class ItemAmigo extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonMensajearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMensajearActionPerformed
+
+        Conversacion conv = new Conversacion(this.labelNombreAmigo.getText());
+        conv.setBounds(conv.getBounds());
+        conv.setVisible(true);
+        
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonMensajearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
