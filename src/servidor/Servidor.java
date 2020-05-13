@@ -3,6 +3,8 @@ import java.net.*;
 import java.security.SecureRandom;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -112,24 +114,26 @@ class GestorPeticion extends Thread {
 		int indexUser = 0;
 		String textoAleatorio = "";
 		String textoMezclado  = "";
+		boolean cambiosBD = false;
 		try{
 			entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			salida = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
 			while (true){
+				System.out.print("\033[H\033[2J");  
+				System.out.flush();
+				System.out.println("\n\n<----------------->"); 
 				//Lee lo que se reciba en el Socket
-				String str = desencriptar(entrada.readLine());
+				String str = desencriptar( entrada.readLine() );
 				System.out.println("-> " + str);
 				//Separa lo que se lee
 				String aux[] = str.split(",");
+				//
 				if (aux[0].startsWith("us")) {//Recibe Usuaro
 					indexUser = buscaUsuario(aux[1]);
 
 					if (indexUser == -1) {//Si no se encuentra el usuario
 						System.out.println("Usuario no Encontrado");
 						salida.println(encriptar("un,"+"null"));
-
-						System.out.println("Cerrando Coneccion");
-						break;
 					}else{//Si lo encuentra
 						Mezclador mes = new Mezclador();
 						user = usuarios.get(indexUser);
@@ -164,42 +168,58 @@ class GestorPeticion extends Thread {
 						
 					}else{
 						System.out.println("Contraseña Incorrecta");
-						salida.println(encriptar("nn"));
+						salida.println( encriptar("nn") );
 					}
 				}else if (aux[0].startsWith("ls")) {//Lista de Amigos
-					System.out.println("\033[H\033[2J");  
-					System.out.flush();
 					System.out.println("Enviando amigos");
-
 					//Envia los nombres
                                         
-                                        ArrayList<String> auxs = new ArrayList<String>();
-                                        for(int i=0;i<user.getAmigos().size();i++)
-                                            auxs.add(user.getAmigos().get(i));
+					ArrayList<String> auxs = new ArrayList<>();
+					for(int i=0;i<user.getAmigos().size();i++)
+						auxs.add(user.getAmigos().get(i));
 					 
-                                        String aux2=auxs.toString();
+					String aux2 = auxs.toString();
 					aux2 = aux2.replace("[", "");
 					aux2 = aux2.replace("]", "");
 					System.out.println("Amigos: "+aux2);
 					salida.println(encriptar(aux2));
                                         
-                                        ArrayList<String> aux3 = new ArrayList<String>();
-                                        
-                                        for(int i=0;i<this.usuarios.size();i++)
-                                            aux3.add(this.usuarios.get(i).getName());
-                                        
-                                        String aux4 = aux3.toString();
-                                        aux4 = aux4.replace("[", "");
+					ArrayList<String> aux3 = new ArrayList<String>();
+					
+					for(int i=0;i<this.usuarios.size();i++)
+						aux3.add(this.usuarios.get(i).getName());
+					
+					String aux4 = aux3.toString();
+					aux4 = aux4.replace("[", "");
 					aux4 = aux4.replace("]", "");
 					System.out.println("Usuarios: "+aux4);
                                         salida.println(encriptar(aux4));
-				}
+				}else if (aux[0].startsWith("ac")) {//Actualizar lista amigos
+					String listaNueva = aux[1];
+					System.out.println("Recibiendo lista nueva: \n"+listaNueva);
+					listaNueva = listaNueva.replace("[", "");
+					listaNueva = listaNueva.replace("]", "");
 
+					
+					String strss[] = listaNueva.split(",");
+					List<String> al = new ArrayList<>();
+					al =  Arrays.asList(strss);
+					ArrayList<String> aux3 = new ArrayList<String>(al);
+
+					usuarios.get(indexUser).setAmigos(aux3);
+					cambiosBD = true;
+				}
+				// Cierra Coneccion
 				if(str.equals("fn")){
 					System.out.println("Cerrando Coneccion");
 					System.out.println("<----------------->\n\n"); 
 					break;
 				}
+			}//Fin While
+			if (cambiosBD) {
+				System.out.println("Actualizando Base de Datos");
+				LectorArchivo lec = new LectorArchivo();
+				lec.escribeArchivo("usuarios.dat", usuarios);
 			}
 			//Cierra la tuberia
 			salida.close();
@@ -315,4 +335,32 @@ class LectorArchivo {
         contenidoArchivo = null;
         return usuarios;
     }
+
+	public boolean escribeArchivo(String fileName,ArrayList<Usuario> contendido){
+		File archivo = new File (fileName);
+		FileWriter fw = null;
+        PrintWriter pw = null;
+
+		// Lectura del fichero
+		try {
+			fw = new FileWriter(archivo);
+			pw = new PrintWriter(fw);
+			// hacer una lectura comoda (disponer del metodo readLine()).
+			for (Usuario usuario : contendido) {
+				pw.println(usuario.toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try{                    
+				if( null != fw ){   
+					fw.close();     
+				}                  
+			}catch (Exception e2){ 
+				e2.printStackTrace();
+				return false;
+			}
+		}//Fin lectura archivo
+		return true;
+	}
 }

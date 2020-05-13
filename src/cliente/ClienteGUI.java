@@ -1,5 +1,4 @@
-
-
+package cliente;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,9 +10,9 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 
 
 /**
@@ -21,7 +20,7 @@ import javax.swing.JLabel;
  * @author Fatake
  */
 public class ClienteGUI extends javax.swing.JFrame {
-     ArrayList<String> listaTodos = new ArrayList<String>();
+     ArrayList<String> listaTodos = new ArrayList<>();
     /**
      * Creates new form NewJFrame
      */
@@ -377,11 +376,8 @@ public class ClienteGUI extends javax.swing.JFrame {
     private void botonActualizarLizastaAmigosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonActualizarLizastaAmigosMouseClicked
         this.actualizarListaAmigos();
     }//GEN-LAST:event_botonActualizarLizastaAmigosMouseClicked
-
-    
     
     public void actualizarListaAmigos(){
-    
         if(usuario != null){
             ArrayList<String> lista = usuario.getAmigos();
             int cs=0;
@@ -396,6 +392,12 @@ public class ClienteGUI extends javax.swing.JFrame {
                 this.setSize(this.getWidth()+1, this.getHeight());
                 this.setSize(this.getWidth()-1, this.getHeight());
             }
+            //Se le envia la nueva lista al servidor
+            try {
+                salida.println(encriptar("ac,"+lista.toString()));
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
@@ -404,24 +406,21 @@ public class ClienteGUI extends javax.swing.JFrame {
         if(usuario != null){
             ArrayList<String> listaT = this.listaTodos;
             ArrayList<String> listaA = usuario.getAmigos();
-            ArrayList<String> listaNA = new ArrayList<String>();
+            ArrayList<String> listaNA = new ArrayList<>();
             int cs=0;
             ItemAgregar nuevo;
             for (String nombre : listaT) {
                 if(!listaA.contains(nombre) & !nombre.equals(usuario.getName())){
-              
-                    
                     nuevo = new ItemAgregar(nombre,this);
                     nuevo.setBounds(10, 10+cs, 217, 45);
                     panelAgregar.add(nuevo);
                 
-                cs+=46;
-               
-                panelAgregar.repaint();
-                this.setSize(this.getWidth()+1, this.getHeight());
-                this.setSize(this.getWidth()-1, this.getHeight());
+                    cs+=46;
+
+                    panelAgregar.repaint();
+                    this.setSize(this.getWidth()+1, this.getHeight());
+                    this.setSize(this.getWidth()-1, this.getHeight());
                 }
-               
             }
         }
     }

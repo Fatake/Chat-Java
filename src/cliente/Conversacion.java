@@ -1,4 +1,4 @@
-
+package cliente;
 
 /**
  *
@@ -113,7 +113,7 @@ public class Conversacion extends javax.swing.JFrame {
     private void botonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarActionPerformed
         // TODO add your handling code here:
         
-        ItemMensaje mensaje
+        ItemMensaje mensaje = null ;
         
     }//GEN-LAST:event_botonEnviarActionPerformed
 
