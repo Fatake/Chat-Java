@@ -55,7 +55,7 @@ public class Usuario {
     public String toString(){
         String aux2 = this.amigos.toString().replace("[", "");
         aux2 = aux2.replace("]", "");
-        aux2 = aux2.replace(",", " ");
+        aux2 = aux2.replace(",", "");
         String aux = ""+this.nombre+","+this.password;
         aux += ","+aux2;
         return aux;

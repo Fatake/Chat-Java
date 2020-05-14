@@ -1,3 +1,5 @@
+package cliente;
+
 /**
  *
  * @author Ignacio Diaz Romero

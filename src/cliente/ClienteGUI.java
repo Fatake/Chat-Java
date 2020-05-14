@@ -1,3 +1,5 @@
+package cliente;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -395,7 +397,7 @@ public class ClienteGUI extends javax.swing.JFrame {
                 listaNormal = listaNormal.replace("[", "");
                 listaNormal = listaNormal.replace("]", "");
                 System.out.println("Amigos nuevos: " +listaNormal);
-                salida.println( encriptar("ac,"+listaNormal ) );
+                salida.println( encriptar("ac, "+listaNormal ) );
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
