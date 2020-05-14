@@ -134,6 +134,9 @@ public class GestorPeticion extends Thread {
 					cambiosBD = true;
 				}else if (aux[0].equals("ms")) {//Mensaje a otro Usuario
                     System.out.println("Recibiendo mensaje:");
+                    System.out.println("Origen:"+aux[1]);
+                    System.out.println("Destino:"+aux[2]);
+                    System.out.println("Mensaje:"+aux[3]);
                 }
                 
                 

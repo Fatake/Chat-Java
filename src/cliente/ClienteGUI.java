@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author Fatake
  */
 public class ClienteGUI extends javax.swing.JFrame {
-     ArrayList<String> listaTodos = new ArrayList<>();
+    private ArrayList<String> listaTodos = new ArrayList<>();
     /**
      * Creates new form NewJFrame
      */
@@ -487,7 +487,7 @@ public class ClienteGUI extends javax.swing.JFrame {
      * @return
      * @throws UnsupportedEncodingException 
      */
-    private static String encriptar(String s) throws UnsupportedEncodingException{
+    public static String encriptar(String s) throws UnsupportedEncodingException{
         return Base64.getEncoder().encodeToString(s.getBytes("utf-8"));
     }
     
@@ -497,23 +497,34 @@ public class ClienteGUI extends javax.swing.JFrame {
      * @return
      * @throws UnsupportedEncodingException 
      */
-    private static String desencriptar(String s) throws UnsupportedEncodingException{
+    public static String desencriptar(String s) throws UnsupportedEncodingException{
         byte[] decode = Base64.getDecoder().decode(s.getBytes());
         return new String(decode, "utf-8");
     }
+    
+    public Usuario getUser(){
+        return this.usuario;
+    }
+    
+    public BufferedReader getEntrada(){
+        return ClienteGUI.entrada;
+    }
+    
+    public PrintWriter getSalida(){
+        return ClienteGUI.salida;
+    }
+    
     //Constantes
     public static final String SERVIDOR_IP = "localhost";
     public static final int PUERTO_SERVER = 9999;
     
     //Variables no Graficas
     private Usuario usuario ;
-    private static BufferedReader entrada;
-    private static PrintWriter salida; 
+    public static BufferedReader entrada;
+    public static PrintWriter salida; 
     private static Socket socket;
     
-    public Usuario getUser(){
-        return this.usuario;
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonActualizarLizastaAmigos;

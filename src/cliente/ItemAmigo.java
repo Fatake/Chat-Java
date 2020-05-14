@@ -5,14 +5,14 @@ package cliente;
  * @author pace_
  */
 public class ItemAmigo extends javax.swing.JPanel {
-        ClienteGUI c;
+    private ClienteGUI c;
     /**
      * Creates new form itemAmigo
      */
     public ItemAmigo(String nombre,ClienteGUI cliente) {
         initComponents();
         this.labelNombreAmigo.setText(nombre);
-        this.c=cliente;
+        this.c = cliente;
     }
 
     /**
@@ -59,14 +59,10 @@ public class ItemAmigo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonMensajearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMensajearActionPerformed
-
-        Conversacion conv = new Conversacion(this.labelNombreAmigo.getText());
+        // Genera un nuemo cuadro de conversacion
+        Conversacion conv = new Conversacion(this.labelNombreAmigo.getText(),this.c);
         conv.setBounds(conv.getBounds());
         conv.setVisible(true);
-        
-
-
-        // TODO add your handling code here:
     }//GEN-LAST:event_botonMensajearActionPerformed
 
 

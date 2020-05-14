@@ -5,12 +5,12 @@ package cliente;
  * @author Ignacio Diaz Romero
  */
 public class ItemMensaje extends javax.swing.JPanel {
-
     /**
      * Creates new form ItemMensaje
      */
-    public ItemMensaje() {
+    public ItemMensaje(String mensaje) {
         initComponents();
+        jLabel1.setText(mensaje);
     }
 
     /**

@@ -1,18 +1,31 @@
 package cliente;
 
+import static cliente.ClienteGUI.encriptar;
+import static cliente.ClienteGUI.salida;
+
+import java.io.UnsupportedEncodingException;
+
 /**
  *
  * @author pace_
  */
 public class Conversacion extends javax.swing.JFrame {
-
+    private String nombreAmigo;
+    private ClienteGUI cliente;
+    private Usuario usuario;
     /**
      * Creates new form Conversacion
+     * @param amigo
+     * @param cliente
      */
-    public Conversacion(String amigo) {
+    public Conversacion(String amigo,ClienteGUI cliente) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.labelAmigoCaht.setText(amigo);
+        this.nombreAmigo = amigo;
+        this.cliente = cliente;
+        this.usuario = this.cliente.getUser();
+        //Se obtienen las entrasdas y salidas del hilo
     }
 
     /**
@@ -44,6 +57,11 @@ public class Conversacion extends javax.swing.JFrame {
         });
 
         botonEnviar.setText("Enviar");
+        botonEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonEnviarMouseClicked(evt);
+            }
+        });
         botonEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonEnviarActionPerformed(evt);
@@ -111,11 +129,28 @@ public class Conversacion extends javax.swing.JFrame {
     }//GEN-LAST:event_textoMensajeMouseClicked
 
     private void botonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarActionPerformed
-        // TODO add your handling code here:
-        
         ItemMensaje mensaje = null ;
+        // Si el texto de mensaje no esta vacio
+        if(!textoMensaje.getText().equals("")){
+            System.out.println("enviando mensaje:"+textoMensaje.getText());
+            // Envia el mensaje
+            try {
+                salida.println( encriptar("ms,"+usuario.getName()+","+labelAmigoCaht.getText()+","+textoMensaje.getText()) );
+            } catch (UnsupportedEncodingException e ) {
+                e.printStackTrace();
+            }
+            mensaje = new ItemMensaje(textoMensaje.getText());
+            mensaje.setBounds(10, 10, 217, 45);
+            panelMensajes.add(mensaje);
+            textoMensaje.setText("");
+        }
+
         
     }//GEN-LAST:event_botonEnviarActionPerformed
+
+    private void botonEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEnviarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonEnviarMouseClicked
 
     /**
      * @param args the command line arguments

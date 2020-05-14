@@ -17,7 +17,7 @@ public class HiloComunicador extends Thread {
      * @Override
      */
     public void run() {
-        final int id = 9999;
+        int id = 9999;
         System.out.println("\n\n<--------Hilo Comunicador--------->");
         // Siempre escucha si hay nuevos mensajes
         while (true) {
@@ -27,7 +27,7 @@ public class HiloComunicador extends Thread {
                 e.printStackTrace();
                 System.out.println("Problema al recibir mensajes");
             }
-
+            
         }
 	}
 }
