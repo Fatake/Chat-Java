@@ -10,7 +10,9 @@ public class ComunicadorHilos{
 	public final ConcurrentHashMap<Integer, ArrayBlockingQueue<String>> colasMensajes = new ConcurrentHashMap<>();
 
     // La capacidad de cada una de las colas de mensajes
-    public static final int CAPACIDAD = 10;
+	public static final int CAPACIDAD = 10;
+	
+	public static final int ID_HILOCOMUNICADOR = 9999;
 
     /**
 	 * Envia un mensaje si hay capacidad disponible o se bloquea si está llena

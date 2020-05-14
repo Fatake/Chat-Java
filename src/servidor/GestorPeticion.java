@@ -137,6 +137,8 @@ public class GestorPeticion extends Thread {
                     System.out.println("Origen:"+aux[1]);
                     System.out.println("Destino:"+aux[2]);
                     System.out.println("Mensaje:"+aux[3]);
+                    String mensaje = ""+aux[1]+","+aux[2]+","+aux[3];
+                    comunicador.enviarMensaje(ComunicadorHilos.ID_HILOCOMUNICADOR, mensaje);
                 }
                 
                 
