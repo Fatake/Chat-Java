@@ -1,18 +1,10 @@
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
-
+/**
+ * Clase Servidor
+ */
 public class Servidor {
-	// Tenemos una cola de mensajes por cada hilo:
-	// - la clave es su identificador
-	// - el valor es la cola
-	public static final ConcurrentHashMap<Integer, ArrayBlockingQueue<String>> colasMensajes = new ConcurrentHashMap<>();
-
-    // La capacidad de cada una de las colas de mensajes
-	public static final int CAPACIDAD = 10;
-	
 	//Lista de Usuarios
 	private static ArrayList<Usuario> usuarios = new ArrayList<>();
 
@@ -90,36 +82,6 @@ public class Servidor {
 			System.out.println(usuario.toString());
 		}
 		System.out.println("<------------------------>\n");
-	}
-
-	/**
-	 * Envia un mensaje si hay capacidad disponible o se bloquea si está llena
-	 * @param id
-	 * @param mensaje
-	 * @throws InterruptedException
-	 */
-	public static void enviarMensaje(int id, String mensaje) throws InterruptedException {
-		obtenerColaPara(id).put(mensaje);
-	}
-	
-	/**
-	 * Bloquea hasta que se recibe un mensaje
-	 * @param id
-	 * @return
-	 * @throws InterruptedException
-	 */
-	public static String recibirMensaje(int id) throws InterruptedException {
-		return obtenerColaPara(id).take();
-	}
-
-	/**
-	 * 
-	 * Obtiene la cola para el id especificado o crea una nueva si no existe
-	 * @param id
-	 * @return
-	 */ 
-	public static ArrayBlockingQueue<String> obtenerColaPara(int id) {
-		return colasMensajes.computeIfAbsent(id, key -> new ArrayBlockingQueue<>(CAPACIDAD));
 	}
 }
 
