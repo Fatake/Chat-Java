@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 
 /**
@@ -17,7 +12,7 @@ public class ItemAgregar extends javax.swing.JPanel {
     public ItemAgregar(String nombre,ClienteGUI cliente) {
         initComponents();
         this.label_nombre.setText(nombre);
-        this.c=cliente;
+        this.c = cliente;
     }
 
     /**
