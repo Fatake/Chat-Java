@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Servidor { 
+public class Servidor {
 	// Tenemos una cola de mensajes por cada hilo:
 	// - la clave es su identificador
 	// - el valor es la cola
-	private static ConcurrentHashMap<Integer, ArrayBlockingQueue<String>> colasMensajes = new ConcurrentHashMap<>();
+	public static final ConcurrentHashMap<Integer, ArrayBlockingQueue<String>> colasMensajes = new ConcurrentHashMap<>();
 
-	// La capacidad de cada una de las colas de mensajes
-	private static final int CAPACIDAD = 10;
-
+    // La capacidad de cada una de las colas de mensajes
+	public static final int CAPACIDAD = 10;
+	
 	//Lista de Usuarios
 	private static ArrayList<Usuario> usuarios = new ArrayList<>();
-	private static ArrayList<GestorPeticion> hilos = new ArrayList<>();
 
 	/**
 	 * Main Servidor
@@ -28,6 +27,11 @@ public class Servidor {
 		ServerSocket socketServer = null;
 		//Socket Cliente
 		Socket socketDespachador = null;
+		//ComunicadorHilos
+		ComunicadorHilos comunica = new ComunicadorHilos();
+		//Hilo Maestro Comunicador
+		HiloComunicador hiloComunicador = null;
+		boolean f = true;
 
 		// Lee la base de datos de los usuarios
 		// Si no exsite, entonces sale
@@ -37,6 +41,7 @@ public class Servidor {
 		}
 		
 		imprimeUsuarios();
+		hiloComunicador = new HiloComunicador(usuarios, comunica);
 
 		// Intenta la coneccion con el socker servidor
 		try {
@@ -46,8 +51,7 @@ public class Servidor {
 			e.printStackTrace();
 			System.exit(-1);
 		}
-
-		// Inicia el servicio de escucha		
+	
 		System.out.println("Escuchando: " + socketServer);
 		//
 		// Inicia el proceso de atender peticiones
@@ -58,9 +62,17 @@ public class Servidor {
 				socketDespachador = socketServer.accept();
 				System.out.println("Nueva conexion aceptada: " + socketDespachador);
 				// Se crea un Hilo para esa peticion
-				GestorPeticion nuevo = new GestorPeticion(socketDespachador,usuarios);
-				hilos.add( nuevo ) ;
+				GestorPeticion nuevo = new GestorPeticion(socketDespachador,usuarios,comunica);
+				
+				// Se crea otro hilo para comunicar a los hilos
+				// Al inicio
+				if (f) {
+					f = false;
+					hiloComunicador.start();
+				}
+				// inicia el hilo Ciente
 				nuevo.start();
+
 				socketDespachador = null;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -86,7 +98,7 @@ public class Servidor {
 	 * @param mensaje
 	 * @throws InterruptedException
 	 */
-	static void enviarMensaje(int id, String mensaje) throws InterruptedException {
+	public static void enviarMensaje(int id, String mensaje) throws InterruptedException {
 		obtenerColaPara(id).put(mensaje);
 	}
 	
@@ -96,7 +108,7 @@ public class Servidor {
 	 * @return
 	 * @throws InterruptedException
 	 */
-	static String recibirMensaje(int id) throws InterruptedException {
+	public static String recibirMensaje(int id) throws InterruptedException {
 		return obtenerColaPara(id).take();
 	}
 
@@ -106,7 +118,7 @@ public class Servidor {
 	 * @param id
 	 * @return
 	 */ 
-	static ArrayBlockingQueue<String> obtenerColaPara(int id) {
+	public static ArrayBlockingQueue<String> obtenerColaPara(int id) {
 		return colasMensajes.computeIfAbsent(id, key -> new ArrayBlockingQueue<>(CAPACIDAD));
 	}
 }

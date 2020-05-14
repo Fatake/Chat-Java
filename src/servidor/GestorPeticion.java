@@ -7,32 +7,34 @@ import java.io.BufferedReader;
 import java.util.Base64;
 import java.io.UnsupportedEncodingException;
 
-/*
+/**
  * Clase Gestor de peticiones
  * Se crea un hilo por cada enlace nuevo
  */
 public class GestorPeticion extends Thread {
-	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+    // Lista de Usuarios
+    private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+    
+    // Lectores y escritores
 	BufferedReader entrada = null;
-	PrintWriter salida = null;
-	Socket socket;
+    PrintWriter salida = null;
 
-	// Constructor sin nombre
-	public GestorPeticion(Socket socket,ArrayList<Usuario> usuarios){
+    // Socket
+    Socket socket;
+    
+    private ComunicadorHilos comunicador;
+
+	// Constructor
+	public GestorPeticion(Socket socket,ArrayList<Usuario> usuarios,ComunicadorHilos comunicador){
 		this.socket = socket;
-		this.usuarios = usuarios;
+        this.usuarios = usuarios;
+        this.comunicador = comunicador;
 	}
 
-	// Constructor con nombre
-	public GestorPeticion(String nombre, Socket socket,ArrayList<Usuario> usuarios){
-		super(nombre);
-		this.socket = socket;
-		this.usuarios = usuarios;
-	}
-
-	/*
-	 * Instruccion de ejecucion
-	 */
+	/**
+     * Funcion que inicializa un Hilo
+     * @Override
+     */
 	public void run(){
 		//System.out.print("\033[H\033[2J");  
 		//System.out.flush();
@@ -121,19 +123,21 @@ public class GestorPeticion extends Thread {
 					salida.println( encriptar(aux4) );
 					
 				}else if (aux[0].equals("ac")) {//Actualizar lista amigos
-                                        String[] a2 = str.split(", ");
+                    String[] a2 = str.split(", ");
 					ArrayList<String> listaNueva = new ArrayList<>();
 					System.out.println("Recibiendo lista nueva:");
-					
-                                        for(int i=1;i<a2.length;i++){
-                                            System.out.println("\n"+a2[i]);
-                                            listaNueva.add(a2[i]);
-                                        }
-
+                    for(int i=1;i<a2.length;i++){
+                        System.out.print(""+a2[i]+" ");
+                        listaNueva.add(a2[i]);
+                    }
 					usuarios.get(indexUser).setAmigos(listaNueva);
 					cambiosBD = true;
-				}
-				// Cierra Coneccion
+				}else if (aux[0].equals("ms")) {//Mensaje a otro Usuario
+                    System.out.println("Recibiendo mensaje:");
+                }
+                
+                
+                // Cierra Coneccion
 				if(str.equals("fn")){
 					System.out.println("Cerrando Coneccion");
 					System.out.println("<----------------->\n\n"); 
@@ -155,24 +159,32 @@ public class GestorPeticion extends Thread {
 		}
 	}
 	
-	/*
-	 * Encriptador
-	 */
+	/**
+     * Encriptador
+     * @param s
+     * @return
+     * @throws UnsupportedEncodingException
+     */
 	private String encriptar(String s) throws UnsupportedEncodingException{
         return Base64.getEncoder().encodeToString(s.getBytes("utf-8"));
     }
 	
-	/*
-	 * Desincriptador
-	 */
+	/**
+     * Desincriptador
+     * @param s
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     private String desencriptar(String s) throws UnsupportedEncodingException{
         byte[] decode = Base64.getDecoder().decode(s.getBytes());
         return new String(decode, "utf-8");
     }
 
-	/*
-	 * Busca ujsuarios en Base de Datos
-	 */
+	/**
+     * Busca usuarios en Base de Datos
+     * @param userName
+     * @return
+     */
 	private int buscaUsuario(String userName){
 		int posicion = -1;
 		for (int i = 0; i < usuarios.size(); i++) {
@@ -186,9 +198,10 @@ public class GestorPeticion extends Thread {
 		return posicion;
 	}
 
-	/*
-	 * Generador de texto aleatorio
-	 */
+	/**
+     * Generador de texto aleatorio
+     * @return
+     */
 	private String generaTexto(){
 		SecureRandom random = new SecureRandom();
  		String text = new BigInteger(586, random).toString(32);
