@@ -107,8 +107,8 @@ class GestorPeticion extends Thread {
 	 * Instruccion de ejecucion
 	 */
 	public void run(){
-		System.out.print("\033[H\033[2J");  
-		System.out.flush();
+		//System.out.print("\033[H\033[2J");  
+		//System.out.flush();
 		System.out.println("\n\n<----------------->"); 
 		Usuario user = null;
 		int indexUser = 0;
@@ -192,7 +192,7 @@ class GestorPeticion extends Thread {
 					aux4 = aux4.replace("]", "");
 					System.out.println("Usuarios: "+aux4);
 					salida.println( encriptar(aux4) );
-					
+				
 				}else if (aux[0].startsWith("ac")) {//Actualizar lista amigos
 					String listaNueva = aux[1];
 					System.out.println("Recibiendo lista nueva: \n"+aux[1]);
