@@ -119,8 +119,8 @@ class GestorPeticion extends Thread {
 			entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			salida = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
 			while (true){
-				//System.out.print("\033[H\033[2J");  
-				//System.out.flush();
+				System.out.print("\033[H\033[2J");  
+				System.out.flush();
 				System.out.println("\n\n<----------------->"); 
 				//Lee lo que se reciba en el Socket
 				String str = desencriptar( entrada.readLine() );
@@ -192,18 +192,17 @@ class GestorPeticion extends Thread {
 					aux4 = aux4.replace("]", "");
 					System.out.println("Usuarios: "+aux4);
 					salida.println( encriptar(aux4) );
+				
+				}else if (aux[0].startsWith("ac")) {//Actualizar lista amigos
+					String listaNueva = aux[1];
+					System.out.println("Recibiendo lista nueva: \n"+aux[1]);
 					
-				}else if (aux[0].equals("ac")) {//Actualizar lista amigos
-                                        String[] a2 = str.split(", ");
-					ArrayList<String> listaNueva = new ArrayList<>();
-					System.out.println("Recibiendo lista nueva:");
-					
-                                        for(int i=1;i<a2.length;i++){
-                                            System.out.println("\n"+a2[i]);
-                                            listaNueva.add(a2[i]);
-                                        }
+					String strss[] = listaNueva.split(",");
+					List<String> al = new ArrayList<>();
+					al =  Arrays.asList(strss);
+					ArrayList<String> aux3 = new ArrayList<String>(al);
 
-					usuarios.get(indexUser).setAmigos(listaNueva);
+					usuarios.get(indexUser).setAmigos(aux3);
 					cambiosBD = true;
 				}
 				// Cierra Coneccion
