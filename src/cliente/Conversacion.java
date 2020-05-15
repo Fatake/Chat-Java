@@ -1,9 +1,14 @@
-package cliente;
 
-import static cliente.ClienteGUI.encriptar;
-import static cliente.ClienteGUI.salida;
 
+
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -13,6 +18,10 @@ public class Conversacion extends javax.swing.JFrame {
     private String nombreAmigo;
     private ClienteGUI cliente;
     private Usuario usuario;
+    ItemMensaje o;
+    ItemMensaje mensaje ;
+      int cont=0;
+       int contw=0;
     /**
      * Creates new form Conversacion
      * @param amigo
@@ -42,6 +51,25 @@ public class Conversacion extends javax.swing.JFrame {
         textoMensaje = new javax.swing.JTextField();
         botonEnviar = new javax.swing.JButton();
         panelMensajes = new javax.swing.JPanel();
+        Salir = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(153, 204, 255));
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Chat con:");
@@ -57,6 +85,11 @@ public class Conversacion extends javax.swing.JFrame {
         });
 
         botonEnviar.setText("Enviar");
+        botonEnviar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                botonEnviarMouseMoved(evt);
+            }
+        });
         botonEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonEnviarMouseClicked(evt);
@@ -83,6 +116,13 @@ public class Conversacion extends javax.swing.JFrame {
             .addGap(0, 250, Short.MAX_VALUE)
         );
 
+        Salir.setText("Salir");
+        Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,20 +130,23 @@ public class Conversacion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(panelMensajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelAmigoCaht)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(textoMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonEnviar)
-                        .addGap(68, 68, 68))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(panelMensajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(19, 19, 19))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(labelAmigoCaht))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(textoMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botonEnviar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Salir)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,11 +156,12 @@ public class Conversacion extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(labelAmigoCaht))
                 .addGap(18, 18, 18)
-                .addComponent(panelMensajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelMensajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonEnviar))
+                    .addComponent(botonEnviar)
+                    .addComponent(Salir))
                 .addGap(12, 12, 12))
         );
 
@@ -129,20 +173,28 @@ public class Conversacion extends javax.swing.JFrame {
     }//GEN-LAST:event_textoMensajeMouseClicked
 
     private void botonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarActionPerformed
-        ItemMensaje mensaje = null ;
+        
+       
         // Si el texto de mensaje no esta vacio
         if(!textoMensaje.getText().equals("")){
-            System.out.println("enviando mensaje:"+textoMensaje.getText());
+            System.out.println("Enviando mensaje:"+textoMensaje.getText());
             // Envia el mensaje
             try {
-                salida.println( encriptar("ms,"+usuario.getName()+","+labelAmigoCaht.getText()+","+textoMensaje.getText()) );
+                cliente.getSalida().println( cliente.encriptar("env,"+usuario.getName()+","+labelAmigoCaht.getText()+","+textoMensaje.getText()) );
+                o = new ItemMensaje(textoMensaje.getText());
+                o.setBounds(400-(textoMensaje.getText().length()*6), 10+cont, 45+(textoMensaje.getText().length()*6), 35);
+            
+            this.getPanelMensajes().add(o);
+            
+            this.getPanelMensajes().repaint();
+                 this.setSize(this.getWidth()+1, this.getHeight());
+                 this.setSize(this.getWidth()-1, this.getHeight());
+            textoMensaje.setText("");
+            cont+=36;
             } catch (UnsupportedEncodingException e ) {
                 e.printStackTrace();
             }
-            mensaje = new ItemMensaje(textoMensaje.getText());
-            mensaje.setBounds(10, 10, 217, 45);
-            panelMensajes.add(mensaje);
-            textoMensaje.setText("");
+            
         }
 
         
@@ -152,12 +204,149 @@ public class Conversacion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_botonEnviarMouseClicked
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+         System.out.println("Entra");
+        cliente.setVisible(true);
+        try {
+            cliente.getSalida().println(cliente.encriptar("sa"));
+            // TODO add your handling code here:
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Conversacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+   
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
+    private void botonEnviarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEnviarMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonEnviarMouseMoved
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        
+         try {
+            cliente.getSalida().println(cliente.encriptar("re"));
+            String Aux=cliente.desencriptar(cliente.getEntrada().readLine());
+            if(!Aux.equals("NO")  &&  !Aux.equals("vacio")){
+                o= new ItemMensaje(Aux);
+                o.setBounds(10, 10+cont, 45+(Aux.length()*6), 35);
+                this.getPanelMensajes().add(o);
+                cont+=26; 
+                this.getPanelMensajes().repaint();
+                 this.setSize(this.getWidth()+1, this.getHeight());
+                 this.setSize(this.getWidth()-1, this.getHeight());
+            }
+                 
+            } catch (IOException ex) {
+                Logger.getLogger(ItemAmigo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseMoved
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+         cliente.setVisible(true);
+         System.out.println("Entra");
+        try {
+            cliente.getSalida().println(cliente.encriptar("sa"));
+            // TODO add your handling code here:
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Conversacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
+
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+        
+        this.setVisible(false);
+        cliente.setVisible(true);
+
+        try {
+            cliente.getSalida().println(cliente.encriptar("sa"));
+            // TODO add your handling code here:
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Conversacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SalirActionPerformed
+
     /**
      * @param args the command line arguments
      */
+
+    public String getNombreAmigo() {
+        return nombreAmigo;
+    }
+
+    public void setNombreAmigo(String nombreAmigo) {
+        this.nombreAmigo = nombreAmigo;
+    }
+
+    public ClienteGUI getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteGUI cliente) {
+        this.cliente = cliente;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public JButton getBotonEnviar() {
+        return botonEnviar;
+    }
+
+    public void setBotonEnviar(JButton botonEnviar) {
+        this.botonEnviar = botonEnviar;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public void setjLabel1(JLabel jLabel1) {
+        this.jLabel1 = jLabel1;
+    }
+
+    public JLabel getLabelAmigoCaht() {
+        return labelAmigoCaht;
+    }
+
+    public void setLabelAmigoCaht(JLabel labelAmigoCaht) {
+        this.labelAmigoCaht = labelAmigoCaht;
+    }
+
+    public JPanel getPanelMensajes() {
+        return this.panelMensajes;
+    }
+
+    
+    public JTextField getTextoMensaje() {
+        return textoMensaje;
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public void setTextoMensaje(JTextField textoMensaje) {
+        this.textoMensaje = textoMensaje;
+    }
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Salir;
     private javax.swing.JButton botonEnviar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelAmigoCaht;

@@ -1,4 +1,11 @@
-package cliente;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+
 
 /**
  *
@@ -6,6 +13,8 @@ package cliente;
  */
 public class ItemAmigo extends javax.swing.JPanel {
     private ClienteGUI c;
+    Conversacion conv;
+  
     /**
      * Creates new form itemAmigo
      */
@@ -59,10 +68,24 @@ public class ItemAmigo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonMensajearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMensajearActionPerformed
+
         // Genera un nuemo cuadro de conversacion
-        Conversacion conv = new Conversacion(this.labelNombreAmigo.getText(),this.c);
+         conv = new Conversacion(this.labelNombreAmigo.getText(),this.c);
         conv.setBounds(conv.getBounds());
         conv.setVisible(true);
+        try {
+            c.getSalida().println(c.encriptar("ms"));
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ItemAmigo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      int cont=0;
+       c.setVisible(false);
+        
+         
+          
+        
+            
+       
     }//GEN-LAST:event_botonMensajearActionPerformed
 
 

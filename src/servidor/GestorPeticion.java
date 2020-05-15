@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.net.*;
 import java.security.SecureRandom;
@@ -132,14 +133,38 @@ public class GestorPeticion extends Thread {
                     }
 					usuarios.get(indexUser).setAmigos(listaNueva);
 					cambiosBD = true;
-				}else if (aux[0].equals("ms")) {//Mensaje a otro Usuario
-                    System.out.println("Recibiendo mensaje:");
-                    System.out.println("Origen:"+aux[1]);
-                    System.out.println("Destino:"+aux[2]);
-                    System.out.println("Mensaje:"+aux[3]);
-                    String mensaje = ""+aux[1]+","+aux[2]+","+aux[3];
-                    comunicador.enviarMensaje(ComunicadorHilos.ID_HILOCOMUNICADOR, mensaje);
-                }
+				}else if (aux[0].equals("ms")) {//Se abre conversacion 
+                                        String ms="";
+                                       
+                                        while(!ms.equals("sa")){
+                                            ms=desencriptar(entrada.readLine());
+                                             String msg[]=ms.split(",");
+                                            switch(msg[0]){
+                                                case "env":
+                                                    System.out.println("Mensaje Nuevo:");
+                                                    System.out.println("Origen:"+msg[1]);
+                                                    System.out.println("Destino:"+msg[2]);
+                                                    System.out.println("Mensaje:"+msg[3]);
+                                                    String mensaje = ""+msg[1]+","+msg[2]+","+msg[3];
+                                                    comunicador.enviarMensaje(ComunicadorHilos.ID_HILOCOMUNICADOR, mensaje);
+                                                    break;
+                                                case "re":
+                                                    String axe=comunicador.checarMensaje(ComunicadorHilos.ID_HILOCOMUNICADOR);
+                                                    if(!axe.equals("")){
+                                                    String mrecv[]=axe.split(",");
+                                                    if(mrecv[1].equals(user.getName())){
+                                                        System.out.println("Actualizando la conversacion de"+user.getName());
+                                                        salida.println(encriptar(mrecv[2])); 
+                                                        comunicador.recibirMensaje(ComunicadorHilos.ID_HILOCOMUNICADOR);
+                                                        }else
+                                                            salida.println(encriptar("NO")); 
+                                                    }else
+                                                        salida.println(encriptar("vacio")); 
+                                                } 
+                                        
+                                            }
+                                            
+                                        }
                 
                 
                 // Cierra Coneccion
