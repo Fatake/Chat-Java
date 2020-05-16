@@ -20,8 +20,8 @@ public class Conversacion extends javax.swing.JFrame {
     private Usuario usuario;
     ItemMensaje o;
     ItemMensaje mensaje ;
-      int cont=0;
-       int contw=0;
+    int cont = 0;
+    int contw = 0;
     /**
      * Creates new form Conversacion
      * @param amigo
