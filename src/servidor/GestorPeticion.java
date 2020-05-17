@@ -22,7 +22,8 @@ public class GestorPeticion extends Thread {
 
     // Socket
     Socket socket;
-    
+	//Hilo comunicador
+	private int ID_PROPIO;
     private ComunicadorHilos comunicador;
 
 	// Constructor
@@ -91,7 +92,8 @@ public class GestorPeticion extends Thread {
 						// Si la contraseña es correcta
 						// SE cambia el nombre del hilo al del usuario
 						try {
-							this.setName(user.getName());
+							this.setName( user.getName() );
+							ID_PROPIO = indexUser;
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -134,37 +136,43 @@ public class GestorPeticion extends Thread {
 					usuarios.get(indexUser).setAmigos(listaNueva);
 					cambiosBD = true;
 				}else if (aux[0].equals("ms")) {//Se abre conversacion 
-                                        String ms="";
-                                       
-                                        while(!ms.equals("sa")){
-                                            ms=desencriptar(entrada.readLine());
-                                             String msg[]=ms.split(",");
-                                            switch(msg[0]){
-                                                case "env":
-                                                    System.out.println("Mensaje Nuevo:");
-                                                    System.out.println("Origen:"+msg[1]);
-                                                    System.out.println("Destino:"+msg[2]);
-                                                    System.out.println("Mensaje:"+msg[3]);
-                                                    String mensaje = ""+msg[1]+","+msg[2]+","+msg[3];
-                                                    comunicador.enviarMensaje(ComunicadorHilos.ID_HILOCOMUNICADOR, mensaje);
-                                                    break;
-                                                case "re":
-                                                    String axe=comunicador.checarMensaje(ComunicadorHilos.ID_HILOCOMUNICADOR);
-                                                    if(!axe.equals("")){
-                                                    String mrecv[]=axe.split(",");
-                                                    if(mrecv[1].equals(user.getName())){
-                                                        System.out.println("Actualizando la conversacion de"+user.getName());
-                                                        salida.println(encriptar(mrecv[2])); 
-                                                        comunicador.recibirMensaje(ComunicadorHilos.ID_HILOCOMUNICADOR);
-                                                        }else
-                                                            salida.println(encriptar("NO")); 
-                                                    }else
-                                                        salida.println(encriptar("vacio")); 
-                                                } 
-                                        
-                                            }
-                                            
-                                        }
+					String ms = "";
+					while(!ms.equals("sa")){//Mientras el mensaje no sea salida
+						//Desencripta el mensaje
+						ms = desencriptar( entrada.readLine() );
+						String msg[] = ms.split(",");
+						switch(msg[0]){
+							case "env"://Si es Enviar enviar
+								System.out.println("Mensaje Nuevo:");
+								System.out.println("Origen:"+msg[1]);
+								System.out.println("Destino:"+msg[2]);
+								System.out.println("Mensaje:"+msg[3]);
+								String mensaje = ""+msg[1]+","+msg[2]+","+msg[3];
+								//Se lo envia al comunicador de hilos
+								comunicador.enviarMensaje( ComunicadorHilos.ID_HILOCOMUNICADOR, mensaje );
+								//Envia el mensaje y recetea la variable
+								ms = "";
+								break;
+							case "re"://Si recibe un mensaje
+								//Escucha su ´propia cola de mensajes
+								String aux3 = comunicador.recibirMensaje(ID_PROPIO);
+								if(!aux3.equals("")){
+									//Recibe los mensajes
+									String mrecv[] = aux3.split(",");
+									if( mrecv[1].equals( user.getName() ) ){
+										System.out.println("Actualizando la conversacion de"+user.getName());
+										salida.println(encriptar(mrecv[2])); 
+									}else{
+										salida.println( encriptar("NO") ); 
+									}
+								}else{
+									salida.println( encriptar("vacio") ); 
+								}
+								ms = "";
+								break;
+						}// Fin switch
+					}                    
+				}
                 
                 
                 // Cierra Coneccion
@@ -174,6 +182,8 @@ public class GestorPeticion extends Thread {
 					break;
 				}
 			}//Fin While
+
+			//Guarda los cambios en el archivo
 			if (cambiosBD) {
 				System.out.println("Actualizando Base de Datos");
 				LectorArchivo lec = new LectorArchivo();

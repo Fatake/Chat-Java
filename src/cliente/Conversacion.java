@@ -173,8 +173,6 @@ public class Conversacion extends javax.swing.JFrame {
     }//GEN-LAST:event_textoMensajeMouseClicked
 
     private void botonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarActionPerformed
-        
-       
         // Si el texto de mensaje no esta vacio
         if(!textoMensaje.getText().equals("")){
             System.out.println("Enviando mensaje:"+textoMensaje.getText());

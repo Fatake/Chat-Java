@@ -32,20 +32,20 @@ public class ComunicadorHilos{
 	 * @throws InterruptedException
 	 */
 	public String recibirMensaje(int id) throws InterruptedException {
-		
-        if( obtenerColaPara(id).isEmpty())
-            return "";
-        return obtenerColaPara(id).take();
-                
+        if( obtenerColaPara(id).isEmpty()){//si esta vacio
+			return "";
+		}
+       
+        return obtenerColaPara(id).take();      
 	}
         
-        public String checarMensaje(int id)throws InterruptedException{
-        if( obtenerColaPara(id).isEmpty())
-            return "";
-        
-        return obtenerColaPara(id).peek();
-        }
-        
+	public String checarMensaje(int id)throws InterruptedException{
+		if( obtenerColaPara(id).isEmpty())
+			return "";
+	
+		return obtenerColaPara(id).peek();
+	}
+	
         
         
 
