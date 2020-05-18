@@ -26,7 +26,7 @@ public class HiloComunicador extends Thread {
         while (true) {
             String mensaje = null;
             try {
-                mensaje = comunicador.checarMensaje(id);
+                mensaje = comunicador.recibirMensaje(id);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 System.out.println("Problema al recibir mensajes");
