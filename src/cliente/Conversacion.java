@@ -178,7 +178,7 @@ public class Conversacion extends javax.swing.JFrame {
             System.out.println("Enviando mensaje:"+textoMensaje.getText());
             // Envia el mensaje
             try {
-                cliente.getSalida().println( cliente.encriptar("env,"+usuario.getName()+","+labelAmigoCaht.getText()+","+textoMensaje.getText()) );
+                cliente.getSalida().println( cliente.encriptar("env|"+usuario.getName()+"|"+labelAmigoCaht.getText()+"|"+textoMensaje.getText()) );
                 o = new ItemMensaje(textoMensaje.getText());
                 o.setBounds(400-(textoMensaje.getText().length()*6), 10+cont, 45+(textoMensaje.getText().length()*6), 35);
             
