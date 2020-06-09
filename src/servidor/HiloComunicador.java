@@ -5,10 +5,10 @@ public class HiloComunicador extends Thread {
     // Lista de Usuarios
     private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
     // Comunicador
-    private final ComunicadorHilos comunicador;
+    private final ColaHilo comunicador;
     
     // Constructor
-    public HiloComunicador(final ArrayList<Usuario> usuarios, final ComunicadorHilos comunicador) {
+    public HiloComunicador(final ArrayList<Usuario> usuarios, final ColaHilo comunicador) {
         this.usuarios = usuarios;
         this.comunicador = comunicador;
         

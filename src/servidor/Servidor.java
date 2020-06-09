@@ -21,7 +21,7 @@ public class Servidor {
 		//Socket Cliente
 		Socket socketDespachador = null;
 		//ComunicadorHilos
-		ComunicadorHilos comunica = new ComunicadorHilos();
+		ColaHilo comunica = new ColaHilo();
 		//Hilo Maestro Comunicador
 		HiloComunicador hiloComunicador = null;
 		boolean f = true;

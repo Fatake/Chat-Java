@@ -1,4 +1,4 @@
-
+    
 import java.io.*;
 import java.net.*;
 import java.security.SecureRandom;
@@ -24,10 +24,10 @@ public class GestorPeticion extends Thread {
     Socket socket;
 	//Hilo comunicador
 	private int ID_PROPIO;
-    private ComunicadorHilos comunicador;
+    private ColaHilo comunicador;
 
 	// Constructor
-	public GestorPeticion(Socket socket,ArrayList<Usuario> usuarios,ComunicadorHilos comunicador){
+	public GestorPeticion(Socket socket,ArrayList<Usuario> usuarios,ColaHilo comunicador){
 		this.socket = socket;
         this.usuarios = usuarios;
         this.comunicador = comunicador;
@@ -149,7 +149,7 @@ public class GestorPeticion extends Thread {
 								System.out.println("Mensaje:"+msg[3]);
 								String mensaje = ""+msg[1]+"|"+msg[2]+"|"+msg[3];
 								//Se lo envia al comunicador de hilos
-								comunicador.enviarMensaje( ComunicadorHilos.ID_HILOCOMUNICADOR, mensaje );
+								comunicador.enviarMensaje( ColaHilo.ID_HILOCOMUNICADOR, mensaje );
 								//Envia el mensaje y recetea la variable
 								ms = "";
 								break;

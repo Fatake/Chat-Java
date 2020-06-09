@@ -1,9 +1,10 @@
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 /**
- * Clase Comunicador entre Hilos
+ * Clase Cola Hilo
+ * 
  */
-public class ComunicadorHilos{
+public class ColaHilo{
     // Tenemos una cola de mensajes por cada hilo:
 	// - la clave es su identificador
 	// - el valor es la cola
