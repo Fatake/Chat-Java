@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 
 
 
@@ -35,6 +36,7 @@ public class ItemAmigo extends javax.swing.JPanel {
 
         labelNombreAmigo = new javax.swing.JLabel();
         botonMensajear = new javax.swing.JButton();
+        eliminarButton = new javax.swing.JButton();
 
         labelNombreAmigo.setText("Nombre Amigo");
 
@@ -45,6 +47,13 @@ public class ItemAmigo extends javax.swing.JPanel {
             }
         });
 
+        eliminarButton.setText("Eliminar");
+        eliminarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -52,18 +61,23 @@ public class ItemAmigo extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelNombreAmigo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(botonMensajear)
-                .addGap(19, 19, 19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(eliminarButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonMensajear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNombreAmigo)
-                    .addComponent(botonMensajear))
+                .addComponent(labelNombreAmigo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(botonMensajear)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(eliminarButton)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -88,9 +102,35 @@ public class ItemAmigo extends javax.swing.JPanel {
        
     }//GEN-LAST:event_botonMensajearActionPerformed
 
+    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
+            this.setVisible(false);
+       c.getUser().removeAmigo(this.labelNombreAmigo.getText());
+       int a = c.actualizarListaAmigos();
+       c.actualizarListaNoAmigos();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarButtonActionPerformed
+
+    public JButton getBotonMensajear() {
+        return botonMensajear;
+    }
+
+    public void setBotonMensajear(JButton botonMensajear) {
+        this.botonMensajear = botonMensajear;
+    }
+
+    public JButton getEliminarButton() {
+        return eliminarButton;
+    }
+
+    public void setEliminarButton(JButton eliminarButton) {
+        this.eliminarButton = eliminarButton;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonMensajear;
+    private javax.swing.JButton eliminarButton;
     private javax.swing.JLabel labelNombreAmigo;
     // End of variables declaration//GEN-END:variables
 }

@@ -65,6 +65,14 @@ public class ClienteGUI extends javax.swing.JFrame {
         botonLogeo = new javax.swing.JButton();
         campoPassword = new javax.swing.JPasswordField();
         labelError = new javax.swing.JLabel();
+        frameRegistro = new javax.swing.JFrame();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        userTextField = new javax.swing.JTextField();
+        pwTextField = new javax.swing.JTextField();
+        resgistrarseButton = new javax.swing.JButton();
+        errorLabel = new javax.swing.JLabel();
         labelListaAmigos = new javax.swing.JLabel();
         botonIniciarSesion = new javax.swing.JButton();
         scrolPanelAmigos = new javax.swing.JScrollPane();
@@ -74,6 +82,7 @@ public class ClienteGUI extends javax.swing.JFrame {
         scrolPanelAgregar = new javax.swing.JScrollPane();
         panelAgregar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        registrarButton = new javax.swing.JButton();
 
         frameLoggin.setTitle("Loggin");
         frameLoggin.setAlwaysOnTop(true);
@@ -140,13 +149,85 @@ public class ClienteGUI extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelPassword)
-                    .addGroup(frameLogginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(campoPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(campoPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addComponent(labelError)
                 .addGap(18, 18, 18)
                 .addComponent(botonLogeo)
                 .addContainerGap(48, Short.MAX_VALUE))
+        );
+
+        frameRegistro.setResizable(false);
+        frameRegistro.setSize(new java.awt.Dimension(308, 228));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setText("REGISTRATE");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setText("Usuario:");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setText("Contraseña:");
+
+        userTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userTextFieldActionPerformed(evt);
+            }
+        });
+
+        resgistrarseButton.setText("Registrarse");
+        resgistrarseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resgistrarseButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout frameRegistroLayout = new javax.swing.GroupLayout(frameRegistro.getContentPane());
+        frameRegistro.getContentPane().setLayout(frameRegistroLayout);
+        frameRegistroLayout.setHorizontalGroup(
+            frameRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frameRegistroLayout.createSequentialGroup()
+                .addGroup(frameRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(frameRegistroLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(frameRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(frameRegistroLayout.createSequentialGroup()
+                                .addGroup(frameRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(25, 25, 25)
+                                .addGroup(frameRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(userTextField)
+                                    .addComponent(pwTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))))
+                        .addGap(0, 62, Short.MAX_VALUE))
+                    .addGroup(frameRegistroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(errorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(resgistrarseButton)))
+                .addContainerGap())
+        );
+        frameRegistroLayout.setVerticalGroup(
+            frameRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frameRegistroLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel2)
+                .addGap(35, 35, 35)
+                .addGroup(frameRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(frameRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(pwTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(frameRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(frameRegistroLayout.createSequentialGroup()
+                        .addComponent(resgistrarseButton)
+                        .addGap(0, 25, Short.MAX_VALUE))
+                    .addComponent(errorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -189,7 +270,9 @@ public class ClienteGUI extends javax.swing.JFrame {
         scrolPanelAmigos.setViewportView(panelAmigos);
 
         textoNombreUsuario.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        textoNombreUsuario.setText("Inicia Sesion");
+        textoNombreUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        textoNombreUsuario.setText("Inicia Sesion o Registrate");
+        textoNombreUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         botonActualizarLizastaAmigos.setText("Actualizar");
         botonActualizarLizastaAmigos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -216,44 +299,59 @@ public class ClienteGUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Usuarios en la red");
 
+        registrarButton.setText("Registrarse");
+        registrarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textoNombreUsuario)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(botonActualizarLizastaAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(labelListaAmigos)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(botonIniciarSesion))
-                                .addComponent(scrolPanelAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(33, 33, 33)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(scrolPanelAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1)))))
-                .addGap(0, 17, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonActualizarLizastaAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelListaAmigos, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrolPanelAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrolPanelAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(61, 61, 61)
+                                .addComponent(registrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(textoNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(204, 204, 204)
+                        .addComponent(botonIniciarSesion)))
+                .addGap(17, 17, 17))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(textoNombreUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelListaAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonIniciarSesion)
-                    .addComponent(jLabel1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(textoNombreUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelListaAmigos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(botonIniciarSesion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(registrarButton)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(scrolPanelAgregar)
                     .addComponent(scrolPanelAmigos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(botonActualizarLizastaAmigos)
                 .addGap(18, 18, 18))
         );
@@ -377,23 +475,12 @@ public class ClienteGUI extends javax.swing.JFrame {
         this.actualizarListaAmigos();
     }//GEN-LAST:event_botonActualizarLizastaAmigosMouseClicked
     
-    public void actualizarListaAmigos(){
+    public int actualizarListaAmigos(){
+        panelAmigos.removeAll();
         if(usuario != null){
             ArrayList<String> lista = usuario.getAmigos();
-            int cs=0;
-            for (String nombre : lista) {
-                ItemAmigo nuevo = new ItemAmigo(nombre,this);
-                
-                nuevo.setBounds(10, 10+cs, 217, 45);
-                panelAmigos.add(nuevo);
-                
-                cs+=46;
-                panelAmigos.repaint();
-                this.setSize(this.getWidth()+1, this.getHeight());
-                this.setSize(this.getWidth()-1, this.getHeight());
-            }
-            //Se le envia la nueva lista al servidor
-            try {
+           
+             try {
                 String listaNormal = usuario.getAmigos().toString();
                 listaNormal = listaNormal.replace("[", "");
                 listaNormal = listaNormal.replace("]", "");
@@ -401,8 +488,45 @@ public class ClienteGUI extends javax.swing.JFrame {
                 salida.println( encriptar("ac, "+listaNormal ) );
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            int cs=0;
+            
+            if(lista.isEmpty() || lista.get(0).equals("") ){
+                ///////////
+                usuario.getAmigos().clear();
+                ItemAmigo Sinamigos = new ItemAmigo("No tienes amigos agregados :c",this);
+             Sinamigos.getBotonMensajear().setVisible(false);
+             Sinamigos.getEliminarButton().setVisible(false);
+             Sinamigos.setBounds(10, 10, 217, 45);
+             panelAmigos.add(Sinamigos);
+             panelAmigos.repaint();
+             this.setSize(this.getWidth()+1, this.getHeight());
+             this.setSize(this.getWidth()-1, this.getHeight());
+                //////////
+             return 1;   
             }
-        }
+            
+            
+                for (String nombre : lista) {
+                ItemAmigo nuevo = new ItemAmigo(nombre,this);
+                
+                nuevo.setBounds(10, 10+cs, 217, 65);
+                panelAmigos.add(nuevo);
+                
+                cs+=66;
+                panelAmigos.repaint();
+                this.setSize(this.getWidth()+1, this.getHeight());
+                this.setSize(this.getWidth()-1, this.getHeight());
+            }
+            //Se le envia la nueva lista al servidor
+           
+            
+            
+             
+            
+            }
+        return 0;
     }
     
     public void actualizarListaNoAmigos(){
@@ -434,6 +558,38 @@ public class ClienteGUI extends javax.swing.JFrame {
            
         // TODO add your handling code here:
     }//GEN-LAST:event_botonLogeoActionPerformed
+
+    private void userTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userTextFieldActionPerformed
+
+    private void registrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarButtonActionPerformed
+
+        frameRegistro.setLocationRelativeTo(null);
+        frameRegistro.setVisible(true);  
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registrarButtonActionPerformed
+
+    private void resgistrarseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resgistrarseButtonActionPerformed
+        
+        String nombre = userTextField.getText();
+        String password = pwTextField.getText();
+        if(nombre.equals("") || password.equals("") ){
+            errorLabel.setText("No ingresó el nombre o contraseña");
+        }else{
+            errorLabel.setText("");
+            //Envia nombre y contraseña del registrado
+            try {
+                salida.println(encriptar("reg,"+nombre+","+password));
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        resgistrarseButton.setVisible(false);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resgistrarseButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -533,8 +689,13 @@ public class ClienteGUI extends javax.swing.JFrame {
     private javax.swing.JButton botonLogeo;
     private javax.swing.JPasswordField campoPassword;
     private javax.swing.JTextField campoUsuarioNombre;
+    private javax.swing.JLabel errorLabel;
     private javax.swing.JFrame frameLoggin;
+    private javax.swing.JFrame frameRegistro;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel labelError;
     private javax.swing.JLabel labelIniciarSesion;
     private javax.swing.JLabel labelListaAmigos;
@@ -542,8 +703,12 @@ public class ClienteGUI extends javax.swing.JFrame {
     private javax.swing.JLabel labelUsuario;
     private javax.swing.JPanel panelAgregar;
     private javax.swing.JPanel panelAmigos;
+    private javax.swing.JTextField pwTextField;
+    private javax.swing.JButton registrarButton;
+    private javax.swing.JButton resgistrarseButton;
     private javax.swing.JScrollPane scrolPanelAgregar;
     private javax.swing.JScrollPane scrolPanelAmigos;
     private javax.swing.JLabel textoNombreUsuario;
+    private javax.swing.JTextField userTextField;
     // End of variables declaration//GEN-END:variables
 }

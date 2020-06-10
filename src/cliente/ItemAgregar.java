@@ -1,16 +1,29 @@
 
+
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+
+
+
+
 /**
  *
- * @author Ignacio Diaz Romero
+ * @author pace_
  */
 public class ItemAgregar extends javax.swing.JPanel {
-        ClienteGUI c;
+    private ClienteGUI c;
+    
+  
     /**
-     * Creates new form ItemAgregar
+     * Creates new form itemAmigo
      */
     public ItemAgregar(String nombre,ClienteGUI cliente) {
         initComponents();
-        this.label_nombre.setText(nombre);
+        this.labelNombreUsuario.setText(nombre);
         this.c = cliente;
     }
 
@@ -23,56 +36,65 @@ public class ItemAgregar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Agregarboton = new javax.swing.JButton();
-        label_nombre = new javax.swing.JLabel();
+        labelNombreUsuario = new javax.swing.JLabel();
+        botonAgregarr = new javax.swing.JButton();
 
-        Agregarboton.setText("Agregar");
-        Agregarboton.setName("Agregar"); // NOI18N
-        Agregarboton.addActionListener(new java.awt.event.ActionListener() {
+        labelNombreUsuario.setText("Nombre Usuairio");
+
+        botonAgregarr.setText("Agregar");
+        botonAgregarr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgregarbotonActionPerformed(evt);
+                botonAgregarrActionPerformed(evt);
             }
         });
-
-        label_nombre.setText("Nombre");
-        label_nombre.setName("Nombre"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(label_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(Agregarboton)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(labelNombreUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(botonAgregarr)
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Agregarboton)
-                    .addComponent(label_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(labelNombreUsuario)
+                    .addComponent(botonAgregarr))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AgregarbotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarbotonActionPerformed
-        // TODO add your handling code here:
+    private void botonAgregarrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarrActionPerformed
+
         this.setVisible(false);
-       c.getUser().addAmigo(this.label_nombre.getText());
-       c.actualizarListaAmigos();
+       c.getUser().addAmigo(this.labelNombreUsuario.getText());
+       int a = c.actualizarListaAmigos();
        c.actualizarListaNoAmigos();
-      
-       
         
-    }//GEN-LAST:event_AgregarbotonActionPerformed
+         
+          
+        
+            
+       
+    }//GEN-LAST:event_botonAgregarrActionPerformed
+
+    public JButton getBotonMensajear() {
+        return botonAgregarr;
+    }
+
+    public void setBotonMensajear(JButton botonMensajear) {
+        this.botonAgregarr = botonMensajear;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Agregarboton;
-    private javax.swing.JLabel label_nombre;
+    private javax.swing.JButton botonAgregarr;
+    private javax.swing.JLabel labelNombreUsuario;
     // End of variables declaration//GEN-END:variables
 }

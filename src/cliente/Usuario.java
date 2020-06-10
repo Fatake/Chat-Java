@@ -36,6 +36,12 @@ public class Usuario {
     public void addAmigo(String nombreAmigo){
         this.amigos.add(nombreAmigo);
     }
+    public void removeAmigo(String nombreAmigo){
+        if(this.amigos.size()==1)
+            this.amigos.clear();
+        else
+            this.amigos.remove(nombreAmigo);
+    }
     //
     // Getters and setters
     //

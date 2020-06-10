@@ -33,7 +33,7 @@ public class HiloComunicador extends Thread {
             }
             //Recibe mensajes
             if(!mensaje.equals("")){
-                String aux[] = mensaje.split("|");
+                String aux[] = mensaje.split("°");
                 String destino = aux[1];
                 System.out.println("Mensaje completo: "+ mensaje);
                 System.out.println("Se Procese a enviar el mensaje:\n  ->" + aux[2]);

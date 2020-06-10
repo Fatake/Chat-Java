@@ -5,14 +5,14 @@
         <group>
             <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/servidor/GestorPeticion.java</file>
             <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/cliente/ItemAgregar.java</file>
+            <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/servidor/LectorArchivo.java</file>
             <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/servidor/Servidor.java</file>
-            <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/cliente/ItemMensaje.java</file>
+            <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/servidor/Usuario.java</file>
             <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/cliente/ItemAmigo.java</file>
+            <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/cliente/Usuario.java</file>
             <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/servidor/ColaHilo.java</file>
             <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/servidor/HiloComunicador.java</file>
             <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/cliente/ClienteGUI.java</file>
-            <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/cliente/Conversacion.java</file>
-            <file>file:/C:/Users/Ignacio%20Diaz%20Romero/Desktop/Chat-Java/src/cliente/MD5.java</file>
         </group>
     </open-files>
 </project-private>
